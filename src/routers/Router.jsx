@@ -35,10 +35,6 @@ import TermsOfService from "../pages/termsofservice/TermsOfService";
 import PrivacyPolicy from "../pages/privacy/PrivacyPolicy";
 import Resume from "../pages/home/Resume";
 
-
-
-
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -54,7 +50,7 @@ export const router = createBrowserRouter([
         element: <Services />,
       },
       {
-        path: "/skills",
+        path: "/skill",
         element: <Skill />,
       },
       {
@@ -74,158 +70,162 @@ export const router = createBrowserRouter([
         element: <ProjectsPage />,
       },
       {
-       path: "/projects/:id",
-       element: <SingleProjectPage />
-       },
-      
+        path: "/projects/:id",
+        element: <SingleProjectPage />,
+      },
+
       {
-       path: "/about",
-       element: <About />
-       },
+        path: "/about",
+        element: <About />,
+      },
       {
-       path: "/discover",
-       element: <Discover />
-      
-       },
+        path: "/discover",
+        element: <Discover />,
+      },
       {
-       path: "/explore",
-       element: <Explore />
-      
-       },
+        path: "/explore",
+        element: <Explore />,
+      },
       {
-       path: "/books",
-       element: <Books />
-      
-       },
+        path: "/books",
+        element: <Books />,
+      },
       {
-       path: "/terms",
-       element: <TermsOfService />
-      
-       },
+        path: "/terms",
+        element: <TermsOfService />,
+      },
       {
-       path: "/privacy",
-       element: <PrivacyPolicy />
-      
-       },
+        path: "/privacy",
+        element: <PrivacyPolicy />,
+      },
       {
-       path: "/resume",
-       element: <Resume />
-      
-       },
-      
+        path: "/resume",
+        element: <Resume />,
+      },
     ],
   },
   {
-  path:"/login",
-  element:<LoginPage/>
+    path: "/login",
+    element: <LoginPage />,
   },
   {
-  path:"/register",
-  element:<RegisterPage/>
+    path: "/register",
+    element: <RegisterPage />,
   },
   {
-    path:"dashboard",
-    element:(
+    path: "dashboard",
+    element: (
       <PrivateRoute>
-        <DashboardLayout/>
+        <DashboardLayout />
       </PrivateRoute>
     ),
-    children:[
+    children: [
       {
-      path:"user",
-      element:<UserDMain/>
+        path: "user",
+        element: <UserDMain />,
       },
       {
-      path:"orders",
-      element:<UserOrders/>
+        path: "orders",
+        element: <UserOrders />,
       },
       {
-        path:"admin",
-        element:
-        <PrivateRoute role="admin">
-          <AdminDMain/>
-        </PrivateRoute>
+        path: "admin",
+        element: (
+          <PrivateRoute role="admin">
+            <AdminDMain />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"hero-banner",
-        element:
-        <PrivateRoute role="admin">
-          <AddHeroBanner/>
-        </PrivateRoute>
+        path: "hero-banner",
+        element: (
+          <PrivateRoute role="admin">
+            <AddHeroBanner />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"manage-heroBanner",
-        element:
-        <PrivateRoute role="admin">
-          <ManageHeroBanner/>
-        </PrivateRoute>
+        path: "manage-heroBanner",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageHeroBanner />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"add-service",
-        element:
-        <PrivateRoute role="admin">
-          <AddService/>
-        </PrivateRoute>
+        path: "add-service",
+        element: (
+          <PrivateRoute role="admin">
+            <AddService />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"manage-service",
-        element:
-        <PrivateRoute role="admin">
-          <ManageService/>
-        </PrivateRoute>
+        path: "manage-service",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageService />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"add-skill",
-        element:
-        <PrivateRoute role="admin">
-          <AddSkill/>
-        </PrivateRoute>
+        path: "add-skill",
+        element: (
+          <PrivateRoute role="admin">
+            <AddSkill />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"manage-skill",
-        element:
-        <PrivateRoute role="admin">
-          <ManageSkill/>
-        </PrivateRoute>
+        path: "manage-skill",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageSkill />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"add-project",
-        element:
-        <PrivateRoute role="admin">
-          <AddProject/>
-        </PrivateRoute>
+        path: "add-project",
+        element: (
+          <PrivateRoute role="admin">
+            <AddProject />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"manage-project",
-        element:
-        <PrivateRoute role="admin">
-          <ManageProject/>
-        </PrivateRoute>
+        path: "manage-project",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageProject />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"add-blog",
-        element:
-        <PrivateRoute role="admin">
-          <AddBlog/>
-        </PrivateRoute>
+        path: "add-blog",
+        element: (
+          <PrivateRoute role="admin">
+            <AddBlog />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"manage-blog",
-        element:
-        <PrivateRoute role="admin">
-          <ManageBlog/>
-        </PrivateRoute>
+        path: "manage-blog",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageBlog />
+          </PrivateRoute>
+        ),
       },
       {
-        path:"manage-contact",
-        element:
-        <PrivateRoute role="admin">
-          <ManageContact/>
-        </PrivateRoute>
+        path: "manage-contact",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageContact />
+          </PrivateRoute>
+        ),
       },
     ],
-  }
-  
+  },
 ]);
 
 export default router;

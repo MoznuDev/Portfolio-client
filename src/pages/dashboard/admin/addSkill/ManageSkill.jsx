@@ -11,37 +11,37 @@ const DynamicIcon = ({ name }) => {
 };
 
 const ManageSkill = () => {
-  const [skills, setSkills] = useState([]);
+  const [skill, setskill] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedSkill, setSelectedSkill] = useState(null);
 
   // ১. সব স্কিল ডাটা ফেচ করা
-  const fetchSkills = async () => {
+  const fetchskill = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/skills");
+      const res = await fetch("http://localhost:5000/api/skill");
       const result = await res.json();
 
       // ব্যাকএন্ড Response structure অনুযায়ী safe extract
       if (Array.isArray(result)) {
-        setSkills(result);
+        setskill(result);
       } else if (result.success && Array.isArray(result.data)) {
-        setSkills(result.data);
+        setskill(result.data);
       } else if (result.data && Array.isArray(result.data.result)) {
-        setSkills(result.data.result);
+        setskill(result.data.result);
       } else {
-        setSkills([]);
+        setskill([]);
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      setSkills([]);
+      setskill([]);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchSkills();
+    fetchskill();
   }, []);
 
   // ২. ডিলিট হ্যান্ডলার
@@ -49,14 +49,14 @@ const ManageSkill = () => {
     if (!window.confirm("Are you sure you want to delete this skill?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/skills/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/skill/${id}`, {
         method: "DELETE",
       });
       const result = await res.json();
 
       if (result.success || res.ok) {
         alert("Skill deleted successfully!");
-        fetchSkills();
+        fetchskill();
       } else {
         alert("Delete failed: " + (result.message || "Unknown error"));
       }
@@ -73,7 +73,7 @@ const ManageSkill = () => {
         onBack={() => setSelectedSkill(null)}
         onUpdateSuccess={() => {
           setSelectedSkill(null);
-          fetchSkills();
+          fetchskill();
         }}
       />
     );
@@ -81,7 +81,7 @@ const ManageSkill = () => {
 
   return (
     <div className="manage-container">
-      <h2>Manage Skills</h2>
+      <h2>Manage skill</h2>
 
       <div className="table-responsive">
         <table className="custom-table">
@@ -98,21 +98,27 @@ const ManageSkill = () => {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="6" style={{ textAlign: "center", padding: "20px" }}>
-                  Loading skills...
+                <td
+                  colSpan="6"
+                  style={{ textAlign: "center", padding: "20px" }}
+                >
+                  Loading skill...
                 </td>
               </tr>
-            ) : skills.length === 0 ? (
+            ) : skill.length === 0 ? (
               <tr>
-                <td colSpan="6" style={{ textAlign: "center", padding: "20px" }}>
-                  No Skills found.
+                <td
+                  colSpan="6"
+                  style={{ textAlign: "center", padding: "20px" }}
+                >
+                  No skill found.
                 </td>
               </tr>
             ) : (
-              skills.map((skill) => {
+              skill.map((skill) => {
                 // Backend Schema compatibility check
                 const level = skill.proficiencyLevel ?? skill.proficiency ?? 0;
-                
+
                 return (
                   <tr key={skill._id || skill.id}>
                     <td className="icon-cell">

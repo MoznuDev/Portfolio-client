@@ -1,37 +1,37 @@
-import { useGetSkillsQuery } from "../../../redux/features/skill/skillApi";
-import DynamicIcon from "../../../components/DynamicIcon"; 
+import { useGetskillQuery } from "../../../redux/features/skill/skillApi";
+import DynamicIcon from "../../components/DynamicIcon";
 
 const Skill = () => {
-  // Redux RTK Query দিয়ে Skills ডাটা ফেচ করা
-  const { data: response, isLoading, isError } = useGetSkillsQuery();
+  // Redux RTK Query দিয়ে skill ডাটা ফেচ করা
+  const { data: response, isLoading, isError } = useGetskillQuery();
 
   if (isLoading) {
-    return <div className="skills-loading">Loading Skills...</div>;
+    return <div className="skill-loading">Loading skill...</div>;
   }
 
   if (isError) {
-    return <div className="skills-error">Failed to load skills.</div>;
+    return <div className="skill-error">Failed to load skill.</div>;
   }
 
   // ডাটাবেজ অবজেক্ট সেফলি হ্যান্ডেল করা
-  const rawData = response?.data || response?.skills || response;
+  const rawData = response?.data || response?.skill || response;
   const skillList = Array.isArray(rawData) ? rawData : [];
 
   return (
-    <section className="skills-section" id="skills">
-      <div className="skills-container">
+    <section className="skill-section" id="skill">
+      <div className="skill-container">
         {/* Section Header */}
-        <div className="skills-header">
-          <div className="skills-badge">
+        <div className="skill-header">
+          <div className="skill-badge">
             <span className="bracket top-left">┌</span>
-            <span className="badge-text">My Awesome Skills</span>
+            <span className="badge-text">My Awesome skill</span>
             <span className="bracket bottom-right">┘</span>
           </div>
-          <h2 className="skills-main-title">My Awesome Skills</h2>
+          <h2 className="skill-main-title">My Awesome skill</h2>
         </div>
 
-        {/* Skills Grid Section */}
-        <div className="skills-grid">
+        {/* skill Grid Section */}
+        <div className="skill-grid">
           {skillList.map((skill, index) => (
             <div
               className="skill-card-wrapper"

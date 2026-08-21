@@ -190,45 +190,45 @@ const Resume = ({ resumeId }) => {
           </section>
         )}
 
-        {/* Skills & Tools */}
-        {cv.skillsAndTools && (
+        {/* skill & Tools */}
+        {cv.skillAndTools && (
           <section className="cv-section">
-            <h3>Skills & Tools</h3>
-            <table className="skills-table">
+            <h3>skill & Tools</h3>
+            <table className="skill-table">
               <tbody>
-                {cv.skillsAndTools.languages?.length > 0 && (
+                {cv.skillAndTools.languages?.length > 0 && (
                   <tr>
                     <td>
                       <strong>Languages</strong>
                     </td>
                     <td>
-                      {Array.isArray(cv.skillsAndTools.languages)
-                        ? cv.skillsAndTools.languages.join(", ")
-                        : cv.skillsAndTools.languages}
+                      {Array.isArray(cv.skillAndTools.languages)
+                        ? cv.skillAndTools.languages.join(", ")
+                        : cv.skillAndTools.languages}
                     </td>
                   </tr>
                 )}
-                {cv.skillsAndTools.frontend?.length > 0 && (
+                {cv.skillAndTools.frontend?.length > 0 && (
                   <tr>
                     <td>
                       <strong>Front-End</strong>
                     </td>
                     <td>
-                      {Array.isArray(cv.skillsAndTools.frontend)
-                        ? cv.skillsAndTools.frontend.join(", ")
-                        : cv.skillsAndTools.frontend}
+                      {Array.isArray(cv.skillAndTools.frontend)
+                        ? cv.skillAndTools.frontend.join(", ")
+                        : cv.skillAndTools.frontend}
                     </td>
                   </tr>
                 )}
-                {cv.skillsAndTools.backend?.length > 0 && (
+                {cv.skillAndTools.backend?.length > 0 && (
                   <tr>
                     <td>
                       <strong>Back-End</strong>
                     </td>
                     <td>
-                      {Array.isArray(cv.skillsAndTools.backend)
-                        ? cv.skillsAndTools.backend.join(", ")
-                        : cv.skillsAndTools.backend}
+                      {Array.isArray(cv.skillAndTools.backend)
+                        ? cv.skillAndTools.backend.join(", ")
+                        : cv.skillAndTools.backend}
                     </td>
                   </tr>
                 )}

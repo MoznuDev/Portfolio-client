@@ -25,14 +25,17 @@ const UpdateSkill = ({ skill, onBack, onUpdateSuccess }) => {
     setLoading(true);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/skills/${skill._id || skill.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          proficiency: Number(formData.proficiency),
-        }),
-      });
+      const res = await fetch(
+        `http://localhost:5000/api/skill/${skill._id || skill.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            proficiency: Number(formData.proficiency),
+          }),
+        },
+      );
 
       const result = await res.json();
       if (result.success) {
@@ -51,7 +54,7 @@ const UpdateSkill = ({ skill, onBack, onUpdateSuccess }) => {
   return (
     <div className="form-container">
       <button onClick={onBack} className="back-btn">
-        <RiArrowLeftLine /> Back to Manage Skills
+        <RiArrowLeftLine /> Back to Manage skill
       </button>
 
       <h2>Update Skill</h2>
@@ -70,7 +73,11 @@ const UpdateSkill = ({ skill, onBack, onUpdateSuccess }) => {
         <div className="form-row">
           <div className="form-group">
             <label>Category</label>
-            <select name="category" value={formData.category} onChange={handleChange}>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
               <option value="Frontend">Frontend</option>
               <option value="Backend">Backend</option>
               <option value="Tools">Tools & Others</option>

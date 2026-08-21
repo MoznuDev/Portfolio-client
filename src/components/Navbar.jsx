@@ -30,7 +30,7 @@ const adminDashboardMenus = [
     path: "/dashboard/add-service",
   },
   {
-    label: "Add Skills",
+    label: "Add skill",
     icon: <RiShoppingBagLine />,
     path: "/dashboard/add-skill",
   },
@@ -67,7 +67,7 @@ const userDashboardMenus = [
 const navLinks = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
-  { label: "My Skills", path: "/skills" },
+  { label: "My skill", path: "/skill" },
   { label: "Testimonials", path: "/testimonials" },
   { label: "Blog", path: "/blog" },
   { label: "Contact", path: "/contact" },

@@ -31,7 +31,7 @@ const AddSkill = () => {
         proficiency: Number(formData.proficiency),
       };
 
-      const res = await fetch("http://localhost:5000/api/skills", {
+      const res = await fetch("http://localhost:5000/api/skill", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -50,7 +50,9 @@ const AddSkill = () => {
           isFeatured: false,
         });
       } else {
-        alert("Failed to add skill: " + (result.message || "Something went wrong"));
+        alert(
+          "Failed to add skill: " + (result.message || "Something went wrong"),
+        );
       }
     } catch (error) {
       console.error("Submission Error:", error);
@@ -79,7 +81,11 @@ const AddSkill = () => {
         <div className="form-row" style={{ display: "flex", gap: "16px" }}>
           <div className="form-group" style={{ flex: 1 }}>
             <label>Category</label>
-            <select name="category" value={formData.category} onChange={handleChange}>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
               <option value="Frontend">Frontend</option>
               <option value="Backend">Backend</option>
               <option value="Tools">Tools & Technology</option>

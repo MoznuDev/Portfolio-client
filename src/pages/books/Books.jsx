@@ -1,9 +1,6 @@
-
 import DynamicIcon from "../../components/DynamicIcon";
 
-
 const Books = () => {
-
   const booksList = [
     {
       id: 1,
@@ -43,13 +40,13 @@ const Books = () => {
   return (
     <section className="books-section" id="books">
       <div className="books-container">
-        
         {/* Section Header */}
         <div className="books-header">
           <span className="books-badge">Knowledge & Learning</span>
           <h2 className="books-main-title">Books I Recommend</h2>
           <p className="books-sub-title">
-            A curated list of books that shaped my software engineering mindset and core technical skills.
+            A curated list of books that shaped my software engineering mindset
+            and core technical skill.
           </p>
         </div>
 
@@ -57,7 +54,6 @@ const Books = () => {
         <div className="books-grid">
           {booksList.map((book) => (
             <div className="book-card" key={book.id}>
-              
               {/* Card Top / Status & Category */}
               <div className="book-card-header">
                 <span className="book-category">{book.category}</span>
@@ -76,7 +72,11 @@ const Books = () => {
                   className="book-icon-wrapper"
                   style={{ backgroundColor: `${book.coverColor}15` }}
                 >
-                  <DynamicIcon iconName="FaBookOpen" size={24} color={book.coverColor} />
+                  <DynamicIcon
+                    iconName="FaBookOpen"
+                    size={24}
+                    color={book.coverColor}
+                  />
                 </div>
 
                 <div className="book-details">
@@ -92,15 +92,18 @@ const Books = () => {
                 <span className="rating-label">Rating:</span>
                 <div className="stars-container">
                   {[...Array(book.rating)].map((_, i) => (
-                    <DynamicIcon key={i} iconName="FaStar" size={14} color="#f59e0b" />
+                    <DynamicIcon
+                      key={i}
+                      iconName="FaStar"
+                      size={14}
+                      color="#f59e0b"
+                    />
                   ))}
                 </div>
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

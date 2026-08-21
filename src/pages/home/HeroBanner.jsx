@@ -8,7 +8,7 @@ import {
   FaGlobe,
 } from "react-icons/fa";
 import { HiDownload, HiArrowDown } from "react-icons/hi";
-import { useGetHeroBannerQuery } from "../../redux/features/hero/heroBannerApi";
+import { useGetHeroBannerQuery } from "../../../redux/features/heroBanner/heroBannerApi";
 import ViewProject from "../../components/ViewProject";
 
 const DEFAULT_AVATAR =
