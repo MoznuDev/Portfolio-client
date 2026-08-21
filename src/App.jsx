@@ -6,17 +6,13 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="app-container">
-      {/* <Navbar /> */}
-      
-      {/* Outlet এর জায়গায় Home বা চাইল্ড রুটগুলো রেন্ডার হবে */}
-      <Navbar/>
+ <>
+ <Navbar/>
       <main className="min-h-screen">
         <Outlet />
       </main>
       <Footer/>
-      {/* <Footer /> */}
-    </div>
+ </>   
   );
 }
 
