@@ -7,7 +7,7 @@ const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 export const serviceApi = createApi({
   reducerPath: "serviceApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${rawBaseUrl}/api/services`,
+    baseUrl: `${rawBaseUrl}/api/service`,
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       // Redux State অথবা LocalStorage থেকে টোকেন নেওয়া

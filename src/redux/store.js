@@ -6,7 +6,7 @@ import authReducer from "./features/auth/authSlice";
 
 import authApi from "./features/auth/authApi";
 import heroBannerApi from "./features/heroBanner/heroBannerApi";
-import serviceApi from "./features/services/serviceApi";
+import serviceApi from "./features/service/serviceApi";
 import skillApi from "./features/skill/skillApi";
 import projectApi from "./features/project/projectApi";
 import testimonialsApi from "./features/testimonials/testimonialsApi";

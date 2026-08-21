@@ -12,7 +12,7 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
-import { useGetServicesQuery } from "../../redux/features/services/serviceApi";
+import { useGetServicesQuery } from "../../redux/features/service/serviceApi";
 
 // ডায়নামিক আইকন রেন্ডার করার হেলপার ফাংশন
 const renderServiceIcon = (iconName) => {
@@ -22,7 +22,8 @@ const renderServiceIcon = (iconName) => {
   if (name.includes("vue")) return <FaVuejs />;
   if (name.includes("figma")) return <FaFigma />;
   if (name.includes("adobe") || name.includes("photo")) return <FaCamera />;
-  if (name.includes("logo") || name.includes("design")) return <FaPencilRuler />;
+  if (name.includes("logo") || name.includes("design"))
+    return <FaPencilRuler />;
   if (name.includes("code")) return <FaCode />;
   return <FaGlobe />;
 };
@@ -43,8 +44,8 @@ const Services = () => {
   const rawData = Array.isArray(response)
     ? response
     : Array.isArray(response?.data)
-    ? response.data
-    : [];
+      ? response.data
+      : [];
 
   // ২. লোডিং স্টেট (Skeleton Loader)
   if (isLoading) {
