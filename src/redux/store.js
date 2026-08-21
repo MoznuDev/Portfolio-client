@@ -4,19 +4,18 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 // Reducer Imports
 import authReducer from "./features/auth/authSlice";
 
-
-import  authApi  from "./features/auth/authApi";
-import  heroBannerApi  from "./features/heroBanner/heroBannerApi";
-import  serviceApi  from "./features/service/serviceApi";
-import  skillApi  from "./features/skill/skillApi";
-import  projectApi  from "./features/project/projectApi";
-import  testimonialsApi  from "./features/testimonials/testimonialsApi";
-import  reviewApi  from "./features/review/reviewApi";
+import authApi from "./features/auth/authApi";
+import heroBannerApi from "./features/heroBanner/heroBannerApi";
+import serviceApi from "./features/service/serviceApi";
+import skillApi from "./features/skill/skillApi";
+import projectApi from "./features/project/projectApi";
+import testimonialsApi from "./features/testimonials/testimonialsApi";
+import reviewApi from "./features/review/reviewApi";
 import blogApi from "./features/blogs/blogApi";
 import contactApi from "./features/auth/contacts/contactApi";
-import  statsApi  from "./features/stats/statsApi";
-import  clientApi  from "./features/client/clientApi";
-import  resumeApi  from "./features/resume/resumeApi";
+import statsApi from "./features/stats/statsApi";
+import clientApi from "./features/client/clientApi";
+import resumeApi from "./features/resume/resumeApi";
 
 // API Array for Middleware
 const apis = [
