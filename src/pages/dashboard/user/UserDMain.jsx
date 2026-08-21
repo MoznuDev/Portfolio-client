@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { useGetUserStatsQuery } from "../../../redux/features/stats/startsApi";
+import { useGetUserStatsQuery } from "../../../redux/features/stats/statsApi";
 import Loading from "../../../../components/Loding";
 
 ChartJS.register(

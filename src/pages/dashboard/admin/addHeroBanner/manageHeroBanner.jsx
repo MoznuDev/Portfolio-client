@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { RiEditBoxLine, RiDeleteBin6Line, RiCloseLine } from "react-icons/ri";
-import { useDeleteHeroBannerMutation, useGetHeroBannerQuery, useUpdateHeroBannerMutation } from "../../../../../redux/features/heroBanner/heroBannerApi";
-
+import {
+  useDeleteHeroBannerMutation,
+  useGetHeroBannerQuery,
+  useUpdateHeroBannerMutation,
+} from "../../../../../redux/features/heroBanner/heroBannerApi";
 
 const ManageHeroBanner = () => {
   const { data: bannerData, isLoading: fetching } = useGetHeroBannerQuery();
