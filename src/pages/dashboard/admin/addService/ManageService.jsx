@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { RiEditBoxLine, RiDeleteBin6Line } from "react-icons/ri";
 import UpdateService from "./UpDateService";
 
-const API_URL = "http://localhost:5000/api/services";
+const API_URL = "https://portfolio-backend-i63g.vercel.app/api/services";
 
 const ManageService = () => {
   const [services, setServices] = useState([]);

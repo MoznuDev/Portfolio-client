@@ -9,7 +9,9 @@ const ManageBlog = () => {
   // ১. সব ব্লগ ফেচ করা
   const fetchBlogs = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/blogs");
+      const res = await fetch(
+        "https://portfolio-backend-i63g.vercel.app/api/blogs",
+      );
       const data = await res.json();
 
       if (data.success) {
@@ -35,9 +37,12 @@ const ManageBlog = () => {
       return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/blogs/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://portfolio-backend-i63g.vercel.app/api/blogs/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
       const result = await res.json();
 
       if (result.success) {

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
-const API_URL = "http://localhost:5000/api/services";
+const API_URL = "https://portfolio-backend-i63g.vercel.app/api/services";
 
 const UpdateService = ({ serviceData, onClose, onUpdateSuccess }) => {
   const [formData, setFormData] = useState({
     title: serviceData?.title || "",
     description: serviceData?.description || "",
     icon: serviceData?.icon || "",
-    technologies: serviceData?.technologies ? serviceData.technologies.join(", ") : "",
+    technologies: serviceData?.technologies
+      ? serviceData.technologies.join(", ")
+      : "",
     features: serviceData?.features ? serviceData.features.join(", ") : "",
   });
 
@@ -28,10 +30,16 @@ const UpdateService = ({ serviceData, onClose, onUpdateSuccess }) => {
     const updatedPayload = {
       ...formData,
       technologies: formData.technologies
-        ? formData.technologies.split(",").map((tech) => tech.trim()).filter(Boolean)
+        ? formData.technologies
+            .split(",")
+            .map((tech) => tech.trim())
+            .filter(Boolean)
         : [],
       features: formData.features
-        ? formData.features.split(",").map((feat) => feat.trim()).filter(Boolean)
+        ? formData.features
+            .split(",")
+            .map((feat) => feat.trim())
+            .filter(Boolean)
         : [],
     };
 

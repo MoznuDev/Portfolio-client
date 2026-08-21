@@ -79,11 +79,14 @@ const AddBlog = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/blogs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(blogData),
-      });
+      const res = await fetch(
+        "https://portfolio-backend-i63g.vercel.app/api/blogs",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(blogData),
+        },
+      );
 
       const result = await res.json();
       if (result.success) {

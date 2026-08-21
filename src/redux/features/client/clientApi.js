@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const clientApi = createApi({
   reducerPath: "clientApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/client",
+    baseUrl: "https://portfolio-backend-i63g.vercel.app/api/client",
   }),
   tagTypes: ["Clients"],
   endpoints: (builder) => ({

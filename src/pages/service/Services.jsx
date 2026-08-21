@@ -22,14 +22,12 @@ const renderServiceIcon = (iconName) => {
   if (name.includes("vue")) return <FaVuejs />;
   if (name.includes("figma")) return <FaFigma />;
   if (name.includes("adobe") || name.includes("photo")) return <FaCamera />;
-  if (name.includes("logo") || name.includes("design"))
-    return <FaPencilRuler />;
+  if (name.includes("logo") || name.includes("design")) return <FaPencilRuler />;
   if (name.includes("code")) return <FaCode />;
   return <FaGlobe />;
 };
 
 const Services = () => {
-  // ৪টির বেশি সার্ভিস থাকলে তা দেখানোর স্টেট
   const [showAll, setShowAll] = useState(false);
 
   const {
@@ -41,38 +39,61 @@ const Services = () => {
     refetchOnMountOrChange: true,
   });
 
-  // ১. লোডিং স্টেট
-  if (isLoading) {
-    return <div className="services-loading">Loading Services...</div>;
-  }
+  // ১. সেফলি ডাটা এক্সট্র্যাক্ট করা
+  const rawData = Array.isArray(response)
+    ? response
+    : Array.isArray(response?.data)
+    ? response.data
+    : [];
 
-  // ২. এরর স্টেট
-  if (isError) {
-    console.error("API Error Object:", error);
+  // ২. লোডিং স্টেট (Skeleton Loader)
+  if (isLoading) {
     return (
-      <div className="services-error">
-        Failed to load services. Please check console for details.
-      </div>
+      <section className="services-section" id="services">
+        <div className="services-container">
+          <div className="services-header">
+            <h2 className="services-main-title">Loading Services...</h2>
+          </div>
+          <div className="services-grid">
+            {[1, 2, 3, 4].map((n) => (
+              <div className="service-card skeleton-card" key={n}>
+                <div className="skeleton-icon"></div>
+                <div className="skeleton-title"></div>
+                <div className="skeleton-text"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     );
   }
 
-  // ৩. সেফলি ডাটা এক্সট্র্যাক্ট করা
-  const getRawData = () => {
-    if (Array.isArray(response)) return response;
-    if (Array.isArray(response?.data)) return response.data;
-    if (Array.isArray(response?.services)) return response.services;
-    if (Array.isArray(response?.data?.services)) return response.data.services;
-    return [];
-  };
-
-  const rawData = getRawData();
+  // ৩. এরর স্টেট
+  if (isError) {
+    console.error("API Error Object:", error);
+    return (
+      <section className="services-section" id="services">
+        <div className="services-container">
+          <div className="services-error">
+            Failed to load services. Please check your backend connection.
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   // ৪. ডাটা খালি থাকলে ফলব্যাক UI
   if (rawData.length === 0) {
-    return <div className="services-error">No services found in database.</div>;
+    return (
+      <section className="services-section" id="services">
+        <div className="services-container">
+          <div className="services-error">No services available right now.</div>
+        </div>
+      </section>
+    );
   }
 
-  // 💡 মূল ফিল্টারিং: showAll true হলে সব দেখাবে, না হলে কঠোরভাবে প্রথম ৪টি দেখাবে
+  // 💡 মূল ফিল্টারিং: showAll true হলে সব দেখাবে, না হলে প্রথম ৪টি দেখাবে
   const servicesList = showAll ? rawData : rawData.slice(0, 4);
 
   return (
@@ -93,7 +114,7 @@ const Services = () => {
           {servicesList.map((service, index) => (
             <div
               className="service-card"
-              key={service._id || service.id || service.slug || index}
+              key={service._id || service.id || index}
             >
               {/* Service Icon */}
               <div className="service-icon">
@@ -111,9 +132,7 @@ const Services = () => {
               <h3 className="service-title">{service.title}</h3>
 
               {/* Description */}
-              <p className="service-description">
-                {service.description || service.discription}
-              </p>
+              <p className="service-description">{service.description}</p>
 
               {/* Technologies List */}
               {Array.isArray(service.technologies) &&
@@ -143,44 +162,21 @@ const Services = () => {
           ))}
         </div>
 
-        {/* 💡 ৪টির বেশি সার্ভিস (যেমন ৬টি) থাকলেই এখন বাটন শো করবে */}
+        {/* 💡 ৪টির বেশি সার্ভিস থাকলেই বাটন শো করবে */}
         {rawData.length > 4 && (
-          <div
-            style={{ textAlign: "center", marginTop: "3rem", clear: "both" }}
-          >
+          <div className="services-action-container">
             <button
               onClick={() => setShowAll(!showAll)}
-              style={{
-                backgroundColor: "transparent",
-                color: "#06b6d4",
-                border: "1px solid #06b6d4",
-                padding: "0.75rem 2rem",
-                borderRadius: "8px",
-                fontWeight: "600",
-                fontSize: "0.95rem",
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#06b6d4";
-                e.currentTarget.style.color = "#fff";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.color = "#06b6d4";
-              }}
+              className="services-toggle-btn"
             >
               {showAll ? (
                 <>
-                  Show Less <FaChevronUp style={{ fontSize: "0.8rem" }} />
+                  Show Less <FaChevronUp className="btn-icon" />
                 </>
               ) : (
                 <>
                   More Services ({rawData.length - 4} More){" "}
-                  <FaChevronDown style={{ fontSize: "0.8rem" }} />
+                  <FaChevronDown className="btn-icon" />
                 </>
               )}
             </button>

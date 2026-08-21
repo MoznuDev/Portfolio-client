@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const skillApi = createApi({
   reducerPath: "skillApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/skill",
+    baseUrl: "https://portfolio-backend-i63g.vercel.app/api/skill",
   }),
   tagTypes: ["skill"],
   endpoints: (builder) => ({

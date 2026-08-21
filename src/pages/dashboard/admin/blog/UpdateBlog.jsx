@@ -37,7 +37,8 @@ const UpdateBlog = ({ blog, onBack, onUpdateSuccess }) => {
   };
 
   const handleAddTag = () => setTags([...tags, ""]);
-  const handleRemoveTag = (index) => setTags(tags.filter((_, i) => i !== index));
+  const handleRemoveTag = (index) =>
+    setTags(tags.filter((_, i) => i !== index));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,11 +63,14 @@ const UpdateBlog = ({ blog, onBack, onUpdateSuccess }) => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/api/blogs/${blog._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData),
-      });
+      const res = await fetch(
+        `https://portfolio-backend-i63g.vercel.app/api/blogs/${blog._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedData),
+        },
+      );
 
       const result = await res.json();
       if (result.success) {
@@ -118,7 +122,11 @@ const UpdateBlog = ({ blog, onBack, onUpdateSuccess }) => {
           <div className="form-group">
             <label>Category</label>
 
-            <select name="category" value={formData.category} onChange={handleChange}>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
               <option value="Backend Development">Backend Development</option>
               <option value="Frontend Development">Frontend Development</option>
               <option value="Full Stack">Full Stack</option>
@@ -210,7 +218,11 @@ const UpdateBlog = ({ blog, onBack, onUpdateSuccess }) => {
               )}
             </div>
           ))}
-          <button type="button" onClick={handleAddTag} className="add-field-btn">
+          <button
+            type="button"
+            onClick={handleAddTag}
+            className="add-field-btn"
+          >
             <RiAddLine /> Add Tag
           </button>
         </div>

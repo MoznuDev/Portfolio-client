@@ -19,7 +19,9 @@ const ManageSkill = () => {
   const fetchskill = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/skill");
+      const res = await fetch(
+        "https://portfolio-backend-i63g.vercel.app/api/skill",
+      );
       const result = await res.json();
 
       // ব্যাকএন্ড Response structure অনুযায়ী safe extract
@@ -49,9 +51,12 @@ const ManageSkill = () => {
     if (!window.confirm("Are you sure you want to delete this skill?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/skill/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://portfolio-backend-i63g.vercel.app/api/skill/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
       const result = await res.json();
 
       if (result.success || res.ok) {

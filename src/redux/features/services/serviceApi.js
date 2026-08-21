@@ -22,14 +22,13 @@ export const serviceApi = createApi({
   endpoints: (builder) => ({
     // ১. সব সার্ভিস ফেচ করা
     getServices: builder.query({
-      query: () => "",
+      query: () => "/",
       providesTags: (result) => {
-        // Backend Response থেকে Array টি সঠিকভাবে বের করা
         const servicesList = Array.isArray(result)
           ? result
           : Array.isArray(result?.data)
-            ? result.data
-            : [];
+          ? result.data
+          : [];
 
         return servicesList.length > 0
           ? [
@@ -43,22 +42,22 @@ export const serviceApi = createApi({
       },
     }),
 
-    // ২. নতুন সার্ভিস তৈরি করা
+    // ২. নতুন সার্ভিস তৈরি করা (ফিক্সড URL: POST /)
     createService: builder.mutation({
-      query: (newService) => ({
-        url: "/create-service",
+      query: (newServiceData) => ({
+        url: "/",
         method: "POST",
-        body: newService,
+        body: newServiceData, // FormData অথবা JSON Object
       }),
       invalidatesTags: [{ type: "Services", id: "LIST" }],
     }),
 
-    // ৩. সার্ভিস আপডেট করা
+    // ৩. সার্ভিস আপডেট করা (ফিক্সড Method: PUT /:id)
     updateService: builder.mutation({
-      query: ({ id, ...updatedService }) => ({
+      query: ({ id, data }) => ({
         url: `/${id}`,
-        method: "PATCH",
-        body: updatedService,
+        method: "PUT",
+        body: data, // FormData অথবা Object
       }),
       invalidatesTags: (result, error, { id }) => [
         { type: "Services", id },

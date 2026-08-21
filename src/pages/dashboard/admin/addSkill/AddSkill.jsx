@@ -31,11 +31,14 @@ const AddSkill = () => {
         proficiency: Number(formData.proficiency),
       };
 
-      const res = await fetch("http://localhost:5000/api/skill", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        "https://portfolio-backend-i63g.vercel.app/api/skill",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
 
       const result = await res.json();
 

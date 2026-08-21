@@ -54,7 +54,7 @@ const UpdateProject = ({ project, onBack, onUpdateSuccess }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/projects/${projectId}`,
+        `https://portfolio-backend-i63g.vercel.app/api/projects/${projectId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

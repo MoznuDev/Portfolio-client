@@ -70,13 +70,16 @@ const AddService = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/services", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://portfolio-backend-i63g.vercel.app/api/services",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(serviceData),
         },
-        body: JSON.stringify(serviceData),
-      });
+      );
 
       const result = await res.json();
 
