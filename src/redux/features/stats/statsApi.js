@@ -19,31 +19,31 @@ export const statsApi = createApi({
   }),
   tagTypes: ["Stats", "Orders"],
   endpoints: (builder) => ({
-    // ১. পাবলিক পোর্টফোলিও স্ট্যাটস
+
     getStats: builder.query({
       query: () => "/stats",
       providesTags: ["Stats"],
     }),
 
-    // ২. অ্যাডমিন ড্যাশবোর্ড স্ট্যাটস
+  
     getAdminStats: builder.query({
       query: () => "/stats/admin-stats",
       providesTags: ["Stats"],
     }),
 
-    // ৩. ইউজার ড্যাশবোর্ড স্ট্যাটস
+  
     getUserStats: builder.query({
       query: (email) => `/stats/user-stats/${email}`,
       providesTags: ["Stats"],
     }),
 
-    // ৪. ইউজার অর্ডারসমূহ পাওয়ার এন্ডপয়েন্ট (এটি যুক্ত করা হলো)
+
     getOrdersByEmail: builder.query({
-      query: (email) => `/orders/user/${email}`, // আপনার ব্যাকএন্ড রাউট অনুযায়ী অ্যাডজাস্ট করুন
+      query: (email) => `/orders/user/${email}`,
       providesTags: ["Orders"],
     }),
 
-    // ৫. স্ট্যাটস আপডেট
+  
     updateStats: builder.mutation({
       query: (data) => ({
         url: "/stats",
@@ -55,12 +55,12 @@ export const statsApi = createApi({
   }),
 });
 
-// হুক এক্সপোর্ট করুন
+
 export const {
   useGetStatsQuery,
   useGetAdminStatsQuery,
   useGetUserStatsQuery,
-  useGetOrdersByEmailQuery, // এখন এটি সঠিকভাবে কাজ করবে
+  useGetOrdersByEmailQuery, 
   useUpdateStatsMutation,
 } = statsApi;
 
