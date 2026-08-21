@@ -8,8 +8,8 @@ import {
   FaGlobe,
 } from "react-icons/fa";
 import { HiDownload, HiArrowDown } from "react-icons/hi";
-import { useGetHeroBannerQuery } from "../../../redux/features/heroBanner/heroBannerApi";
 import ViewProject from "../../components/ViewProject";
+import { useGetHeroBannerQuery } from "../../redux/features/heroBanner/heroBannerApi";
 
 const DEFAULT_AVATAR =
   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop";

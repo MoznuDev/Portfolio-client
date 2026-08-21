@@ -1,5 +1,4 @@
-import { useGetskillQuery } from "../../../redux/features/skill/skillApi";
-import DynamicIcon from "../../components/DynamicIcon";
+import { useGetskillQuery } from "../../redux/features/skill/skillApi";
 
 const Skill = () => {
   // Redux RTK Query দিয়ে skill ডাটা ফেচ করা
