@@ -5,7 +5,7 @@ export const skillApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://portfolio-backend-i63g.vercel.app/api/skill",
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token"); // যদি টোকেন থাকে
+      const token = localStorage.getItem("token"); 
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -15,7 +15,7 @@ export const skillApi = createApi({
   tagTypes: ["Skill"],
   endpoints: (builder) => ({
     // 1. Get All Skills
-    getSkills: builder.query({
+    getSkill: builder.query({
       query: (category) => (category ? `?category=${category}` : "/"),
       providesTags: (result) =>
         result?.data
