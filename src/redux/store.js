@@ -8,7 +8,6 @@ import authReducer from "./features/auth/authSlice";
 import { authApi } from "./features/auth/authApi";
 import { heroBannerApi } from "./features/hero/heroBannerApi";
 import { serviceApi } from "./features/services/serviceApi";
-import { skillApi } from "./features/skill/skillApi";
 import { projectApi } from "./features/project/projectApi";
 import { testimonialsApi } from "./features/testimonials/testimonialsApi";
 import { reviewApi } from "./features/reviews/reviewApi";
@@ -17,8 +16,9 @@ import { contactApi } from "./features/auth/contacts/contactApi";
 import { statsApi } from "./features/starts/startsApi";
 import { clientApi } from "./features/client/clientApi";
 import { resumeApi } from "./features/resume/resumeApi";
+import { skillApi } from "./features/skill/skillApi";
 
-// সব API গুলোর একটি অ্যারে
+
 const apis = [
   authApi,
   heroBannerApi,
