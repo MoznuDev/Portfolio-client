@@ -10,8 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { useGetUserStatsQuery } from "../../../redux/features/starts/startsApi";
-import Loading from "../../../components/Loding";
+import { useGetUserStatsQuery } from "../../../redux/features/stats/startsApi";
+import Loading from "../../../../components/Loding";
 
 ChartJS.register(
   CategoryScale,
