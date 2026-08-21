@@ -5,7 +5,7 @@ export const skillApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://portfolio-backend-i63g.vercel.app/api/skill",
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token"); 
+      const token = localStorage.getItem("token");
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
