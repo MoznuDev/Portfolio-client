@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import getBaseUrl from "../../../utils/getBaseUrl";
+import getBaseUrl from "../../../utils/getBaseURL";
 
 const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 

@@ -1,4 +1,4 @@
-import { useGetSkillsQuery } from "../../redux/featurs/skill/skillApi";
+import { useGetSkillsQuery } from "../../redux/features/skill/skillApi";
 import DynamicIcon from "../../components/DynamicIcon"; // 💡 ১. DynamicIcon ইম্পোর্ট করুন
 
 const Skill = () => {
@@ -20,7 +20,6 @@ const Skill = () => {
   return (
     <section className="skills-section" id="skills">
       <div className="skills-container">
-
         {/* Section Header */}
         <div className="skills-header">
           <div className="skills-badge">
@@ -34,8 +33,8 @@ const Skill = () => {
         {/* Skills Grid Section */}
         <div className="skills-grid">
           {skillList.map((skill, index) => (
-            <div 
-              className="skill-card-wrapper" 
+            <div
+              className="skill-card-wrapper"
               key={skill._id || skill.id || skill.slug || index}
             >
               {/* Top Cut-Corner Skill Card */}
@@ -43,13 +42,23 @@ const Skill = () => {
                 <div className="skill-icon-box">
                   {/* 💡 ২. img ট্যাগের পরিবর্তে DynamicIcon ব্যবহার করা হয়েছে */}
                   {skill.icon ? (
-                    <DynamicIcon iconName={skill.icon} size={32} color="#3b82f6" />
+                    <DynamicIcon
+                      iconName={skill.icon}
+                      size={32}
+                      color="#3b82f6"
+                    />
                   ) : (
-                    <span className="fallback-text">{skill.title?.charAt(0)}</span>
+                    <span className="fallback-text">
+                      {skill.title?.charAt(0)}
+                    </span>
                   )}
                 </div>
                 <div className="skill-percentage">
-                  {skill.proficiencyLevel ? `${skill.proficiencyLevel}%` : (skill.proficiency ? `${skill.proficiency}%` : '80%')}
+                  {skill.proficiencyLevel
+                    ? `${skill.proficiencyLevel}%`
+                    : skill.proficiency
+                      ? `${skill.proficiency}%`
+                      : "80%"}
                 </div>
               </div>
               {/* Bottom Skill Title */}
@@ -60,13 +69,12 @@ const Skill = () => {
 
         {/* Resume Experience / Education Section */}
         <div className="resume-grid">
-          
           {/* Educational Experience Box */}
           <div className="resume-folder-card">
             <div className="resume-folder-tab"></div>
             <div className="resume-content-box">
               <h3 className="resume-box-title">Educational Experience</h3>
-              
+
               <div className="resume-list">
                 <div className="resume-item">
                   <div className="resume-item-header">
@@ -82,8 +90,12 @@ const Skill = () => {
                     <span className="resume-year">1999 - 2000</span>
                     <span className="resume-score">5.00/5</span>
                   </div>
-                  <h4 className="resume-item-title">Higher Secondary Certificate (HSC)</h4>
-                  <p className="resume-item-subtitle">Science Academic Program</p>
+                  <h4 className="resume-item-title">
+                    Higher Secondary Certificate (HSC)
+                  </h4>
+                  <p className="resume-item-subtitle">
+                    Science Academic Program
+                  </p>
                 </div>
               </div>
             </div>
@@ -94,7 +106,7 @@ const Skill = () => {
             <div className="resume-folder-tab"></div>
             <div className="resume-content-box">
               <h3 className="resume-box-title">Job Experience</h3>
-              
+
               <div className="resume-list">
                 <div className="resume-item">
                   <div className="resume-item-header">
@@ -116,9 +128,7 @@ const Skill = () => {
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );

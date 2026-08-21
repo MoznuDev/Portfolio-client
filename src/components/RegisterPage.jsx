@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useRegisterUserMutation } from "../redux/featurs/auth/authApi";
+import { useRegisterUserMutation } from "../redux/features/auth/authApi";
 
 const RegisterPage = () => {
   const [message, setMessage] = useState("");
@@ -44,7 +44,7 @@ const RegisterPage = () => {
     } catch (error) {
       setSuccess("");
       setMessage(
-        error?.data?.message || error?.message || "Registration failed!"
+        error?.data?.message || error?.message || "Registration failed!",
       );
     }
   };
@@ -126,8 +126,10 @@ const RegisterPage = () => {
                     message: "পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে",
                   },
                   pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message: "বড় ও ছোট হাতের অক্ষর, সংখ্যা এবং স্পেশাল ক্যারেক্টার থাকতে হবে",
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      "বড় ও ছোট হাতের অক্ষর, সংখ্যা এবং স্পেশাল ক্যারেক্টার থাকতে হবে",
                   },
                 })}
               />
@@ -189,16 +191,23 @@ const RegisterPage = () => {
           {success && <div className="backend-success">{success}</div>}
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="submit-btn"
-          >
+          <button type="submit" disabled={isLoading} className="submit-btn">
             {isLoading ? (
               <>
                 <svg className="spinner" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
                 </svg>
                 Registering...
               </>

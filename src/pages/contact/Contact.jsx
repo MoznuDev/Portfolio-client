@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Headphones, ArrowRight, Mail, MessageSquare } from "lucide-react";
-import { useSendContactMessageMutation } from "../../redux/featurs/auth/contacts/contactApi";
+import { useSendContactMessageMutation } from "../../redux/features/auth/contacts/contactApi";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -116,11 +116,7 @@ const Contact = () => {
                 </div>
               )}
 
-              <button
-                type="submit"
-                className="submit-btn"
-                disabled={isLoading}
-              >
+              <button type="submit" className="submit-btn" disabled={isLoading}>
                 <span>{isLoading ? "Sending..." : "Send Message"}</span>
                 <ArrowRight size={18} />
               </button>
@@ -136,7 +132,8 @@ const Contact = () => {
               </div>
               <h4 className="info-title">Get Support</h4>
               <p className="info-desc">
-                If you want to communicate live, please reach out via phone or direct message.
+                If you want to communicate live, please reach out via phone or
+                direct message.
               </p>
               <p className="info-detail">
                 Phone Number: <a href="tel:01922222224">01922222224</a>
@@ -153,13 +150,15 @@ const Contact = () => {
               </div>
               <h4 className="info-title">Communication With Mail</h4>
               <p className="info-desc">
-                Feel free to drop an email for project inquiries or collaborations.
+                Feel free to drop an email for project inquiries or
+                collaborations.
               </p>
               <p className="info-detail">
                 Email 01: <a href="mailto:admin@gmail.com">admin@gmail.com</a>
               </p>
               <p className="info-detail">
-                Email 02: <a href="mailto:personal@gmail.com">personal@gmail.com</a>
+                Email 02:{" "}
+                <a href="mailto:personal@gmail.com">personal@gmail.com</a>
               </p>
             </div>
 

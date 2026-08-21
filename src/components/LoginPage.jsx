@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useLoginUserMutation } from "../redux/featurs/auth/authApi";
-import { setUser } from "../redux/featurs/auth/authSlice";
+import { useLoginUserMutation } from "../redux/features/auth/authApi";
+import { setUser } from "../redux/features/auth/authSlice";
 
 const AuthPage = () => {
   const [message, setMessage] = useState("");
@@ -24,13 +24,13 @@ const AuthPage = () => {
     try {
       const response = await loginUser(data).unwrap();
       const { user, token } = response;
-       
+
       dispatch(setUser({ user, token }));
       navigate("/");
-       
     } catch (error) {
       console.error("Login error:", error);
-      const errorMsg = error?.data?.message || "Please provide a valid email & password";
+      const errorMsg =
+        error?.data?.message || "Please provide a valid email & password";
       setMessage(errorMsg);
     }
   };
@@ -119,11 +119,7 @@ const AuthPage = () => {
           <button type="submit" disabled={isLoading} className="submit-btn">
             {isLoading ? (
               <>
-                <svg
-                  className="spinner"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="spinner" fill="none" viewBox="0 0 24 24">
                   <circle
                     className="opacity-25"
                     cx="12"

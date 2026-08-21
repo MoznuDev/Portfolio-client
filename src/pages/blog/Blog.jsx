@@ -1,8 +1,5 @@
-
-
-import { Clock } from "lucide-react"; 
-import { useGetBlogsQuery } from "../../redux/featurs/blog/blogApi";
-
+import { Clock } from "lucide-react";
+import { useGetBlogsQuery } from "../../redux/features/blog/blogApi";
 
 const Blog = () => {
   const { data: response, isLoading, isError, error } = useGetBlogsQuery();
@@ -22,7 +19,6 @@ const Blog = () => {
   return (
     <section className="blog-section">
       <div className="blog-container">
-        
         {/* Section Header */}
         <div className="blog-header">
           <div className="blog-badge">
@@ -57,7 +53,9 @@ const Blog = () => {
                   <div className="blog-content">
                     <div className="blog-meta">
                       <div className="blog-tags">
-                        <span className="tag category-tag">{blog.category}</span>
+                        <span className="tag category-tag">
+                          {blog.category}
+                        </span>
                         {blog.tags && blog.tags.length > 0 && (
                           <span className="tag sub-tag">{blog.tags[0]}</span>
                         )}
@@ -79,7 +77,6 @@ const Blog = () => {
             })}
           </div>
         )}
-
       </div>
     </section>
   );

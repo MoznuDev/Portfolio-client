@@ -1,25 +1,26 @@
 import { useState } from "react";
 import { RiEditBoxLine, RiDeleteBin6Line, RiCloseLine } from "react-icons/ri";
-import { 
-  useDeleteHeroBannerMutation, 
-  useGetHeroBannerQuery, 
-  useUpdateHeroBannerMutation 
-} from "../../../../redux/featurs/hero/heroBannerApi";
+import {
+  useDeleteHeroBannerMutation,
+  useGetHeroBannerQuery,
+  useUpdateHeroBannerMutation,
+} from "../../../../redux/features/hero/heroBannerApi";
 
 const ManageHeroBanner = () => {
   const { data: bannerData, isLoading: fetching } = useGetHeroBannerQuery();
-  const [updateHeroBanner, { isLoading: isUpdating }] = useUpdateHeroBannerMutation();
+  const [updateHeroBanner, { isLoading: isUpdating }] =
+    useUpdateHeroBannerMutation();
   const [deleteHeroBanner] = useDeleteHeroBannerMutation();
 
   const [editingBanner, setEditingBanner] = useState(null);
-  const [formData, setFormData] = useState({ 
-    title: "", 
-    subtitle: "", 
+  const [formData, setFormData] = useState({
+    title: "",
+    subtitle: "",
     description: "",
     primaryBtnText: "",
     primaryBtnLink: "",
     secondaryBtnText: "",
-    resumeUrl: ""
+    resumeUrl: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
@@ -28,12 +29,13 @@ const ManageHeroBanner = () => {
   const banners = Array.isArray(bannerData)
     ? bannerData
     : bannerData
-    ? [bannerData]
-    : [];
+      ? [bannerData]
+      : [];
 
   // Delete Handler
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this Hero Banner?")) return;
+    if (!window.confirm("Are you sure you want to delete this Hero Banner?"))
+      return;
 
     try {
       const res = await deleteHeroBanner(id).unwrap();
@@ -143,18 +145,31 @@ const ManageHeroBanner = () => {
                       src={banner.imageUrl || banner.image}
                       alt={banner.title}
                       className="table-thumb"
-                      style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "6px" }}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        objectFit: "cover",
+                        borderRadius: "6px",
+                      }}
                     />
                   </td>
-                  <td><strong>{banner.title}</strong></td>
+                  <td>
+                    <strong>{banner.title}</strong>
+                  </td>
                   <td>{banner.subtitle}</td>
                   <td className="desc-cell">{banner.description}</td>
                   <td>
                     <div className="action-buttons">
-                      <button onClick={() => handleEditClick(banner)} className="edit-btn">
+                      <button
+                        onClick={() => handleEditClick(banner)}
+                        className="edit-btn"
+                      >
                         <RiEditBoxLine /> Edit
                       </button>
-                      <button onClick={() => handleDelete(banner._id)} className="delete-btn">
+                      <button
+                        onClick={() => handleDelete(banner._id)}
+                        className="delete-btn"
+                      >
                         <RiDeleteBin6Line /> Delete
                       </button>
                     </div>
@@ -172,7 +187,10 @@ const ManageHeroBanner = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h3>Edit Hero Banner</h3>
-              <button onClick={() => setEditingBanner(null)} className="close-btn">
+              <button
+                onClick={() => setEditingBanner(null)}
+                className="close-btn"
+              >
                 <RiCloseLine />
               </button>
             </div>
@@ -258,23 +276,40 @@ const ManageHeroBanner = () => {
               {/* Image Upload Field */}
               <div className="form-group">
                 <label>Hero Image (Leave empty to keep existing image)</label>
-                <input type="file" accept="image/*" onChange={handleImageChange} />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
                 {previewUrl && (
                   <div className="image-preview" style={{ marginTop: "10px" }}>
-                    <img 
-                      src={previewUrl} 
-                      alt="Preview" 
-                      style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
+                    <img
+                      src={previewUrl}
+                      alt="Preview"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                      }}
                     />
                   </div>
                 )}
               </div>
 
               <div className="modal-actions">
-                <button type="button" onClick={() => setEditingBanner(null)} className="cancel-btn">
+                <button
+                  type="button"
+                  onClick={() => setEditingBanner(null)}
+                  className="cancel-btn"
+                >
                   Cancel
                 </button>
-                <button type="submit" className="submit-btn" disabled={isUpdating}>
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isUpdating}
+                >
                   {isUpdating ? "Updating..." : "Update Banner"}
                 </button>
               </div>

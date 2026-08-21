@@ -1,55 +1,62 @@
-import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { 
-  useGetProjectByIdQuery, 
-  useAddReviewMutation 
-} from '../../redux/featurs/project/projectsApi';
-import { 
-  FaExternalLinkAlt, 
-  FaGithub, 
-  FaStar, 
-  FaArrowLeft, 
-  FaPaperPlane, 
-  FaPen, 
-  FaTimes 
-} from 'react-icons/fa';
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import {
+  useGetProjectByIdQuery,
+  useAddReviewMutation,
+} from "../../redux/features/project/projectApi";
+import {
+  FaExternalLinkAlt,
+  FaGithub,
+  FaStar,
+  FaArrowLeft,
+  FaPaperPlane,
+  FaPen,
+  FaTimes,
+} from "react-icons/fa";
 
 const SingleProjectPage = () => {
   const { id } = useParams();
-  const { data: response, isLoading, isError, error } = useGetProjectByIdQuery(id);
+  const {
+    data: response,
+    isLoading,
+    isError,
+    error,
+  } = useGetProjectByIdQuery(id);
   const [addReview, { isLoading: isSubmitting }] = useAddReviewMutation();
 
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState('');
-  const [userName, setUserName] = useState('');
-  const [submitError, setSubmitError] = useState('');
+  const [comment, setComment] = useState("");
+  const [userName, setUserName] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const project = response?.project || response?.data || response;
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    setSubmitError('');
+    setSubmitError("");
 
     if (!comment.trim()) {
-      setSubmitError('Please write a review comment.');
+      setSubmitError("Please write a review comment.");
       return;
     }
 
     try {
       await addReview({
         projectId: id,
-        userName: userName.trim() || 'Anonymous',
+        userName: userName.trim() || "Anonymous",
         rating: Number(rating),
         comment: comment.trim(),
       }).unwrap();
 
-      setComment('');
-      setUserName('');
+      setComment("");
+      setUserName("");
       setRating(5);
       setShowReviewForm(false);
     } catch (err) {
-      setSubmitError(err?.data?.message || 'Failed to submit review. Try again.');
+      setSubmitError(
+        err?.data?.message || "Failed to submit review. Try again.",
+      );
     }
   };
 
@@ -72,7 +79,8 @@ const SingleProjectPage = () => {
     );
   }
 
-  const imageUrl = project?.projectImage || project?.image || project?.thumbnail;
+  const imageUrl =
+    project?.projectImage || project?.image || project?.thumbnail;
   const liveUrl = project?.liveUrl || project?.liveLink;
   const githubUrl = project?.githubClient || project?.githubLink;
   const reviews = Array.isArray(project?.reviews) ? project.reviews : [];
@@ -88,15 +96,13 @@ const SingleProjectPage = () => {
         {/* Left: Project Image */}
         <div className="project-image-wrapper">
           {imageUrl ? (
-            <img 
-              src={imageUrl} 
-              alt={project?.title || 'Project Preview'} 
+            <img
+              src={imageUrl}
+              alt={project?.title || "Project Preview"}
               className="project-image"
             />
           ) : (
-            <div className="no-image-placeholder">
-              No Preview Available
-            </div>
+            <div className="no-image-placeholder">No Preview Available</div>
           )}
         </div>
 
@@ -104,39 +110,36 @@ const SingleProjectPage = () => {
         <div className="project-info-wrapper">
           <div>
             <span className="category-badge">
-              {project?.category || 'Development'}
+              {project?.category || "Development"}
             </span>
 
-            <h1 className="project-title">
-              {project?.title}
-            </h1>
+            <h1 className="project-title">{project?.title}</h1>
 
-            <p className="project-description">
-              {project?.description}
-            </p>
+            <p className="project-description">{project?.description}</p>
 
             {/* Technologies */}
-            {Array.isArray(project?.technologies) && project.technologies.length > 0 && (
-              <div className="tech-section">
-                <h3 className="tech-heading">TECHNOLOGIES USED</h3>
-                <div className="tech-list">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="tech-badge">
-                      {tech}
-                    </span>
-                  ))}
+            {Array.isArray(project?.technologies) &&
+              project.technologies.length > 0 && (
+                <div className="tech-section">
+                  <h3 className="tech-heading">TECHNOLOGIES USED</h3>
+                  <div className="tech-list">
+                    {project.technologies.map((tech, idx) => (
+                      <span key={idx} className="tech-badge">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
 
           {/* Actions & Links */}
           <div className="project-actions">
             <div className="btn-group">
               {liveUrl && (
-                <a 
-                  href={liveUrl} 
-                  target="_blank" 
+                <a
+                  href={liveUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"
                 >
@@ -145,9 +148,9 @@ const SingleProjectPage = () => {
               )}
 
               {githubUrl && (
-                <a 
-                  href={githubUrl} 
-                  target="_blank" 
+                <a
+                  href={githubUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-secondary"
                 >
@@ -161,10 +164,8 @@ const SingleProjectPage = () => {
 
       {/* Review Header with Toggle Button */}
       <div className="review-header">
-        <h2 className="section-title">
-          Reviews ({reviews.length})
-        </h2>
-        
+        <h2 className="section-title">Reviews ({reviews.length})</h2>
+
         <button
           onClick={() => setShowReviewForm(!showReviewForm)}
           className="btn btn-outline"
@@ -185,21 +186,17 @@ const SingleProjectPage = () => {
       {showReviewForm && (
         <div className="review-form-card">
           <h3 className="form-title">Leave Your Feedback</h3>
-          
-          {submitError && (
-            <p className="form-error">
-              {submitError}
-            </p>
-          )}
+
+          {submitError && <p className="form-error">{submitError}</p>}
 
           <form onSubmit={handleReviewSubmit} className="review-form">
             <div className="form-grid">
               {/* User Name */}
               <div className="input-group">
                 <label className="input-label">Your Name</label>
-                <input 
-                  type="text" 
-                  placeholder="John Doe" 
+                <input
+                  type="text"
+                  placeholder="John Doe"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   className="form-input"
@@ -217,7 +214,11 @@ const SingleProjectPage = () => {
                       onClick={() => setRating(star)}
                       className="star-btn"
                     >
-                      <FaStar className={star <= rating ? 'star-active' : 'star-inactive'} />
+                      <FaStar
+                        className={
+                          star <= rating ? "star-active" : "star-inactive"
+                        }
+                      />
                     </button>
                   ))}
                   <span className="rating-count">({rating}/5)</span>
@@ -228,8 +229,8 @@ const SingleProjectPage = () => {
             {/* Comment */}
             <div className="input-group">
               <label className="input-label">Your Review</label>
-              <textarea 
-                rows="4" 
+              <textarea
+                rows="4"
                 placeholder="Write your feedback or thoughts about this project..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
@@ -243,7 +244,7 @@ const SingleProjectPage = () => {
               disabled={isSubmitting}
               className="btn btn-primary submit-btn"
             >
-              <FaPaperPlane /> {isSubmitting ? 'Submitting...' : 'Post Review'}
+              <FaPaperPlane /> {isSubmitting ? "Submitting..." : "Post Review"}
             </button>
           </form>
         </div>
@@ -255,7 +256,9 @@ const SingleProjectPage = () => {
           {reviews.map((rev, index) => (
             <div key={index} className="review-card">
               <div className="review-card-header">
-                <span className="reviewer-name">{rev.userName || rev.user || 'Anonymous'}</span>
+                <span className="reviewer-name">
+                  {rev.userName || rev.user || "Anonymous"}
+                </span>
                 <div className="rating-display">
                   <FaStar className="star-active" />
                   <span className="rating-num">{rev.rating}</span>
@@ -266,7 +269,9 @@ const SingleProjectPage = () => {
           ))}
         </div>
       ) : (
-        <p className="no-reviews-text">No reviews yet. Be the first to leave a review!</p>
+        <p className="no-reviews-text">
+          No reviews yet. Be the first to leave a review!
+        </p>
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAddHeroBannerMutation } from "../../../../redux/featurs/hero/heroBannerApi";
+import { useAddHeroBannerMutation } from "../../../../redux/features/hero/heroBannerApi";
 
 const AddHeroBanner = () => {
   const [formData, setFormData] = useState({
@@ -74,7 +74,10 @@ const AddHeroBanner = () => {
       }
     } catch (error) {
       console.error("Submission Error:", error);
-      alert(error?.data?.message || "Failed to update Hero Banner. Please check network/auth.");
+      alert(
+        error?.data?.message ||
+          "Failed to update Hero Banner. Please check network/auth.",
+      );
     }
   };
 
@@ -193,7 +196,12 @@ const AddHeroBanner = () => {
               <img
                 src={previewUrl}
                 alt="Hero Banner Preview"
-                style={{ width: "120px", height: "120px", objectFit: "cover", borderRadius: "8px" }}
+                style={{
+                  width: "120px",
+                  height: "120px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
               />
             </div>
           )}

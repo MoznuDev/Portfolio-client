@@ -5,7 +5,7 @@ import UpdateProject from "./UpdateProject";
 import {
   useDeleteProjectMutation,
   useGetProjectsQuery,
-} from "../../../../redux/featurs/project/projectsApi";
+} from "../../../../redux/features/project/projectApi";
 
 const ManageProject = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -18,7 +18,8 @@ const ManageProject = () => {
 
   // ২. ডিলিট হ্যান্ডলার
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this project?")) return;
+    if (!window.confirm("Are you sure you want to delete this project?"))
+      return;
 
     try {
       await deleteProject(id).unwrap();

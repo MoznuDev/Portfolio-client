@@ -10,27 +10,58 @@ import {
   RiCloseLine,
   RiUser3Line,
 } from "react-icons/ri";
-import { useLogoutUserMutation } from "../redux/featurs/auth/authApi";
-import { logout } from "../redux/featurs/auth/authSlice";
-
-
-
-
-
+import { useLogoutUserMutation } from "../redux/features/auth/authApi";
+import { logout } from "../redux/features/auth/authSlice";
 
 const adminDashboardMenus = [
-  { label: "Admin Dashboard", icon: <RiDashboardLine />, path: "/dashboard/admin" },
-  {label: "Hero Banner", icon:<RiDashboardLine/>, path: "dashboard/hero-banner"},
-  { label: "Add Service", icon: <RiShoppingBagLine />, path: "/dashboard/add-service" },
-  { label: "Add Skills", icon: <RiShoppingBagLine />, path: "/dashboard/add-skill" },
-  { label: "Add Projects", icon: <RiShoppingBagLine />, path: "/dashboard/add-project" },
-  { label: "Add Blog", icon: <RiShoppingBagLine />, path: "/dashboard/add-blog" },
+  {
+    label: "Admin Dashboard",
+    icon: <RiDashboardLine />,
+    path: "/dashboard/admin",
+  },
+  {
+    label: "Hero Banner",
+    icon: <RiDashboardLine />,
+    path: "dashboard/hero-banner",
+  },
+  {
+    label: "Add Service",
+    icon: <RiShoppingBagLine />,
+    path: "/dashboard/add-service",
+  },
+  {
+    label: "Add Skills",
+    icon: <RiShoppingBagLine />,
+    path: "/dashboard/add-skill",
+  },
+  {
+    label: "Add Projects",
+    icon: <RiShoppingBagLine />,
+    path: "/dashboard/add-project",
+  },
+  {
+    label: "Add Blog",
+    icon: <RiShoppingBagLine />,
+    path: "/dashboard/add-blog",
+  },
 ];
 
 const userDashboardMenus = [
-  { label: "User Dashboard", icon: <RiDashboardLine />, path: "/dashboard/user" },
-  { label: "My Orders", icon: <RiShoppingBagLine />, path: "/dashboard/orders" },
-  { label: "Profile Settings", icon: <RiUser3Line />, path: "/dashboard/profile" },
+  {
+    label: "User Dashboard",
+    icon: <RiDashboardLine />,
+    path: "/dashboard/user",
+  },
+  {
+    label: "My Orders",
+    icon: <RiShoppingBagLine />,
+    path: "/dashboard/orders",
+  },
+  {
+    label: "Profile Settings",
+    icon: <RiUser3Line />,
+    path: "/dashboard/profile",
+  },
 ];
 
 const navLinks = [
@@ -45,7 +76,7 @@ const navLinks = [
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  
+
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -81,7 +112,9 @@ export const Navbar = () => {
 
   // ইউজারের রোলের উপর ভিত্তি করে ড্রপডাউন মেনু ফিল্টার
   const dropDownMenus =
-  user?.role?.toLowerCase() === "admin" ? adminDashboardMenus : userDashboardMenus;
+    user?.role?.toLowerCase() === "admin"
+      ? adminDashboardMenus
+      : userDashboardMenus;
 
   return (
     <header className="navbar-header">
@@ -105,7 +138,7 @@ export const Navbar = () => {
         {/* Desktop Actions */}
         <div className="nav-actions-desktop">
           <Link to="/projects">
-          <button className="btn-primary btn-full">Buy Now</button>
+            <button className="btn-primary btn-full">Buy Now</button>
           </Link>
 
           {!user ? (
@@ -247,7 +280,7 @@ export const Navbar = () => {
 
         <div className="mobile-actions">
           <Link to="/projects">
-          <button className="btn-primary btn-full">Buy Now</button>
+            <button className="btn-primary btn-full">Buy Now</button>
           </Link>
 
           {!user ? (

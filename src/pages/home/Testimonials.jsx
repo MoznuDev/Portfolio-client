@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { useGetReviewsQuery } from "../../redux/featurs/reviews/reviewApi";
+import { useGetReviewsQuery } from "../../redux/features/reviews/reviewApi";
 import RatingStars from "../../components/RatingStars";
 
 // Swiper Essential CSS
@@ -14,7 +14,8 @@ const Testimonials = () => {
   const nextRef = useRef(null);
 
   if (isLoading) return <div className="testi-loading">Loading Reviews...</div>;
-  if (isError) return <div className="testi-error">Failed to load reviews.</div>;
+  if (isError)
+    return <div className="testi-error">Failed to load reviews.</div>;
 
   const reviewsList = Array.isArray(response)
     ? response
@@ -44,8 +45,9 @@ const Testimonials = () => {
 
           <div className="header-right">
             <p>
-              Throughout the project, communication with your team was seamless and efficient. 
-              I appreciated the regular updates and prompt response.
+              Throughout the project, communication with your team was seamless
+              and efficient. I appreciated the regular updates and prompt
+              response.
             </p>
           </div>
         </div>
@@ -56,16 +58,28 @@ const Testimonials = () => {
           <div className="left-banner-card">
             <div className="banner-content">
               <h3 className="avg-rating-num">{avgRating}</h3>
-              <p className="avg-subtext">Average 500+ Reviews in My portfolio.</p>
-              <p className="avg-subtext">This review will be impressed to You.</p>
+              <p className="avg-subtext">
+                Average 500+ Reviews in My portfolio.
+              </p>
+              <p className="avg-subtext">
+                This review will be impressed to You.
+              </p>
             </div>
 
             {/* Slider Navigation Arrows */}
             <div className="slider-nav-btns">
-              <button ref={prevRef} className="nav-btn prev-btn" aria-label="Previous">
+              <button
+                ref={prevRef}
+                className="nav-btn prev-btn"
+                aria-label="Previous"
+              >
                 ‹
               </button>
-              <button ref={nextRef} className="nav-btn next-btn" aria-label="Next">
+              <button
+                ref={nextRef}
+                className="nav-btn next-btn"
+                aria-label="Next"
+              >
                 ›
               </button>
             </div>
@@ -114,7 +128,9 @@ const Testimonials = () => {
                     <div className="testimonial-card">
                       <div className="card-top">
                         <div className="rating-box">
-                          <span className="rating-number">{currentRating.toFixed(1)}</span>
+                          <span className="rating-number">
+                            {currentRating.toFixed(1)}
+                          </span>
                           <RatingStars
                             rating={currentRating}
                             size="16px"
@@ -125,7 +141,9 @@ const Testimonials = () => {
                         <div className="quote-icon">“</div>
                       </div>
 
-                      <p className="review-text">{item.review || item.reviewMessage}</p>
+                      <p className="review-text">
+                        {item.review || item.reviewMessage}
+                      </p>
 
                       <div className="client-info">
                         <img

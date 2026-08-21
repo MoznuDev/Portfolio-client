@@ -1,22 +1,22 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
+import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 // ১. Auth Slice Import (User state & Token ধরে রাখার জন্য)
-import authReducer from './featurs/auth/authSlice'; 
+import authReducer from "./features/auth/authSlice";
 
 // ২. API Slices Import
-import { authApi } from './featurs/auth/authApi';
-import { heroBannerApi } from './featurs/hero/heroBannerApi';
-import { serviceApi } from './featurs/services/serviceApi';
-import { skillApi } from './featurs/skill/skillApi';
-import { projectApi } from './featurs/project/projectsApi'; 
-import { testimonialsApi } from './featurs/testimonials/testimonialsApi';
-import { reviewApi } from './featurs/reviews/reviewApi';
-import { blogApi } from './featurs/blog/blogApi';
-import { contactApi } from './featurs/auth/contacts/contactApi'; 
-import { statsApi } from './featurs/starts/startsApi'; 
-import { clientApi } from './featurs/client/clientApi'; 
-import { resumeApi } from './featurs/resume/resumeApi';
+import { authApi } from "./features/auth/authApi";
+import { heroBannerApi } from "./features/hero/heroBannerApi";
+import { serviceApi } from "./features/services/serviceApi";
+import { skillApi } from "./features/skill/skillApi";
+import { projectApi } from "./features/project/projectApi";
+import { testimonialsApi } from "./features/testimonials/testimonialsApi";
+import { reviewApi } from "./features/reviews/reviewApi";
+import { blogApi } from "./features/blog/blogApi";
+import { contactApi } from "./features/auth/contacts/contactApi";
+import { statsApi } from "./features/starts/startsApi";
+import { clientApi } from "./features/client/clientApi";
+import { resumeApi } from "./features/resume/resumeApi";
 
 // সব API গুলোর একটি অ্যারে
 const apis = [
@@ -31,7 +31,7 @@ const apis = [
   contactApi,
   statsApi,
   clientApi,
-  resumeApi
+  resumeApi,
 ];
 
 export const store = configureStore({
@@ -45,7 +45,7 @@ export const store = configureStore({
     [heroBannerApi.reducerPath]: heroBannerApi.reducer,
     [serviceApi.reducerPath]: serviceApi.reducer,
     [skillApi.reducerPath]: skillApi.reducer,
-    [projectApi.reducerPath]: projectApi.reducer, 
+    [projectApi.reducerPath]: projectApi.reducer,
     [testimonialsApi.reducerPath]: testimonialsApi.reducer,
     [reviewApi.reducerPath]: reviewApi.reducer,
     [blogApi.reducerPath]: blogApi.reducer,
@@ -59,8 +59,8 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(...apis.map((api) => api.middleware)), 
-  devTools: import.meta.env.DEV, 
+    }).concat(...apis.map((api) => api.middleware)),
+  devTools: import.meta.env.DEV,
 });
 
 // Refetch on focus / reconnect সেটআপ

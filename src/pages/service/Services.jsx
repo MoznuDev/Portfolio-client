@@ -1,29 +1,30 @@
-import { useState } from 'react';
-import { 
-  FaWordpress, 
-  FaReact, 
-  FaVuejs, 
-  FaFigma, 
-  FaCamera, 
-  FaPencilRuler, 
-  FaCode, 
+import { useState } from "react";
+import {
+  FaWordpress,
+  FaReact,
+  FaVuejs,
+  FaFigma,
+  FaCamera,
+  FaPencilRuler,
+  FaCode,
   FaGlobe,
   FaCheck,
   FaChevronDown,
-  FaChevronUp
-} from 'react-icons/fa';
-import { useGetServicesQuery } from '../../redux/featurs/services/serviceApi';
+  FaChevronUp,
+} from "react-icons/fa";
+import { useGetServicesQuery } from "../../redux/features/services/serviceApi";
 
 // ডায়নামিক আইকন রেন্ডার করার হেলপার ফাংশন
 const renderServiceIcon = (iconName) => {
-  const name = iconName?.toLowerCase() || '';
-  if (name.includes('wordpress')) return <FaWordpress />;
-  if (name.includes('react')) return <FaReact />;
-  if (name.includes('vue')) return <FaVuejs />;
-  if (name.includes('figma')) return <FaFigma />;
-  if (name.includes('adobe') || name.includes('photo')) return <FaCamera />;
-  if (name.includes('logo') || name.includes('design')) return <FaPencilRuler />;
-  if (name.includes('code')) return <FaCode />;
+  const name = iconName?.toLowerCase() || "";
+  if (name.includes("wordpress")) return <FaWordpress />;
+  if (name.includes("react")) return <FaReact />;
+  if (name.includes("vue")) return <FaVuejs />;
+  if (name.includes("figma")) return <FaFigma />;
+  if (name.includes("adobe") || name.includes("photo")) return <FaCamera />;
+  if (name.includes("logo") || name.includes("design"))
+    return <FaPencilRuler />;
+  if (name.includes("code")) return <FaCode />;
   return <FaGlobe />;
 };
 
@@ -31,17 +32,18 @@ const Services = () => {
   // ৪টির বেশি সার্ভিস থাকলে তা দেখানোর স্টেট
   const [showAll, setShowAll] = useState(false);
 
-  const { data: response, isLoading, isError, error } = useGetServicesQuery(undefined, {
+  const {
+    data: response,
+    isLoading,
+    isError,
+    error,
+  } = useGetServicesQuery(undefined, {
     refetchOnMountOrChange: true,
   });
 
   // ১. লোডিং স্টেট
   if (isLoading) {
-    return (
-      <div className="services-loading">
-        Loading Services...
-      </div>
-    );
+    return <div className="services-loading">Loading Services...</div>;
   }
 
   // ২. এরর স্টেট
@@ -67,11 +69,7 @@ const Services = () => {
 
   // ৪. ডাটা খালি থাকলে ফলব্যাক UI
   if (rawData.length === 0) {
-    return (
-      <div className="services-error">
-        No services found in database.
-      </div>
-    );
+    return <div className="services-error">No services found in database.</div>;
   }
 
   // 💡 মূল ফিল্টারিং: showAll true হলে সব দেখাবে, না হলে কঠোরভাবে প্রথম ৪টি দেখাবে
@@ -80,7 +78,6 @@ const Services = () => {
   return (
     <section className="services-section" id="services">
       <div className="services-container">
-        
         {/* Header */}
         <div className="services-header">
           <div className="services-badge">
@@ -94,14 +91,17 @@ const Services = () => {
         {/* Services Grid */}
         <div className="services-grid">
           {servicesList.map((service, index) => (
-            <div 
-              className="service-card" 
+            <div
+              className="service-card"
               key={service._id || service.id || service.slug || index}
             >
               {/* Service Icon */}
               <div className="service-icon">
-                {service.icon?.startsWith('http') ? (
-                  <img src={service.icon} alt={service.title || 'Service Icon'} />
+                {service.icon?.startsWith("http") ? (
+                  <img
+                    src={service.icon}
+                    alt={service.title || "Service Icon"}
+                  />
                 ) : (
                   renderServiceIcon(service.icon || service.title)
                 )}
@@ -116,74 +116,76 @@ const Services = () => {
               </p>
 
               {/* Technologies List */}
-              {Array.isArray(service.technologies) && service.technologies.length > 0 && (
-                <div className="service-technologies">
-                  {service.technologies.map((tech, idx) => (
-                    <span key={idx} className="tech-tag">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              )}
+              {Array.isArray(service.technologies) &&
+                service.technologies.length > 0 && (
+                  <div className="service-technologies">
+                    {service.technologies.map((tech, idx) => (
+                      <span key={idx} className="tech-tag">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
               {/* Features List */}
-              {Array.isArray(service.features) && service.features.length > 0 && (
-                <ul className="service-features">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="feature-item">
-                      <FaCheck className="feature-icon" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
+              {Array.isArray(service.features) &&
+                service.features.length > 0 && (
+                  <ul className="service-features">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="feature-item">
+                        <FaCheck className="feature-icon" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
             </div>
           ))}
         </div>
 
         {/* 💡 ৪টির বেশি সার্ভিস (যেমন ৬টি) থাকলেই এখন বাটন শো করবে */}
         {rawData.length > 4 && (
-          <div style={{ textAlign: 'center', marginTop: '3rem', clear: 'both' }}>
+          <div
+            style={{ textAlign: "center", marginTop: "3rem", clear: "both" }}
+          >
             <button
               onClick={() => setShowAll(!showAll)}
               style={{
-                backgroundColor: 'transparent',
-                color: '#06b6d4',
-                border: '1px solid #06b6d4',
-                padding: '0.75rem 2rem',
-                borderRadius: '8px',
-                fontWeight: '600',
-                fontSize: '0.95rem',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                transition: 'all 0.3s ease',
+                backgroundColor: "transparent",
+                color: "#06b6d4",
+                border: "1px solid #06b6d4",
+                padding: "0.75rem 2rem",
+                borderRadius: "8px",
+                fontWeight: "600",
+                fontSize: "0.95rem",
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                transition: "all 0.3s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#06b6d4';
-                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.backgroundColor = "#06b6d4";
+                e.currentTarget.style.color = "#fff";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#06b6d4';
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "#06b6d4";
               }}
             >
               {showAll ? (
                 <>
-                  Show Less <FaChevronUp style={{ fontSize: '0.8rem' }} />
+                  Show Less <FaChevronUp style={{ fontSize: "0.8rem" }} />
                 </>
               ) : (
                 <>
-                  More Services ({rawData.length - 4} More){' '}
-                  <FaChevronDown style={{ fontSize: '0.8rem' }} />
+                  More Services ({rawData.length - 4} More){" "}
+                  <FaChevronDown style={{ fontSize: "0.8rem" }} />
                 </>
               )}
             </button>
           </div>
         )}
-
       </div>
     </section>
   );

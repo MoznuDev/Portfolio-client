@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RiAddLine, RiDeleteBin6Line } from "react-icons/ri";
-import { useAddProjectMutation } from "../../../../redux/featurs/project/projectsApi";
+import { useAddProjectMutation } from "../../../../redux/features/project/projectApi";
 
 const AddProject = () => {
   // RTK Query Mutation Hook
@@ -29,7 +29,8 @@ const AddProject = () => {
     if (!file) return;
     setUploading(true);
 
-    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "vjlhguxj";
+    const uploadPreset =
+      import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "vjlhguxj";
     const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "uxpksmbv";
 
     if (!uploadPreset || !cloudName) {
@@ -48,7 +49,7 @@ const AddProject = () => {
         {
           method: "POST",
           body: data,
-        }
+        },
       );
 
       const fileData = await res.json();
@@ -119,7 +120,7 @@ const AddProject = () => {
       const projectData = {
         ...restFormData,
         projectImage: image, // ইমেজ লিংক বা ক্লাউডিনারি ফাইল লিংক
-        liveUrl: liveLink,   // ডাটাবেজে লাইভ ডেমো ইউআরএল হিসেবে যাবে
+        liveUrl: liveLink, // ডাটাবেজে লাইভ ডেমো ইউআরএল হিসেবে যাবে
         order: Number(formData.order),
         technologies: technologies.filter((t) => t.trim() !== ""),
       };
@@ -147,7 +148,7 @@ const AddProject = () => {
       console.error("Submission Error:", error);
       alert(
         "Failed to add project: " +
-          (error?.data?.message || error.message || "Something went wrong")
+          (error?.data?.message || error.message || "Something went wrong"),
       );
     }
   };
@@ -194,7 +195,9 @@ const AddProject = () => {
               disabled={uploading}
             />
             {uploading && (
-              <p style={{ color: "#3b82f6", fontSize: "14px", marginTop: "4px" }}>
+              <p
+                style={{ color: "#3b82f6", fontSize: "14px", marginTop: "4px" }}
+              >
                 Uploading image...
               </p>
             )}
@@ -220,7 +223,7 @@ const AddProject = () => {
                     height: "80px",
                     objectFit: "cover",
                     borderRadius: "6px",
-                    border: "1px solid #334155"
+                    border: "1px solid #334155",
                   }}
                   onError={(e) => {
                     e.target.style.display = "none";

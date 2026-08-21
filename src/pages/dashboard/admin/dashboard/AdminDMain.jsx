@@ -3,7 +3,7 @@ import AdminStats from "./AdminStats";
 
 import AdminStatsChart from "./AdminStatsChart";
 import Loading from "../../../../components/Loding";
-import { useGetAdminStatsQuery } from "../../../../redux/featurs/starts/startsApi";
+import { useGetAdminStatsQuery } from "../../../../redux/features/starts/startsApi";
 
 const AdminDMain = () => {
   const { user } = useSelector((state) => state.auth);

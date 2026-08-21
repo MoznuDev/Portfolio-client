@@ -1,10 +1,16 @@
 import { RiDeleteBin6Line, RiMailLine, RiUser3Line } from "react-icons/ri";
-import { useDeleteContactMessageMutation, useGetAllContactMessagesQuery } from "../../../../redux/featurs/auth/contacts/contactApi";
-
+import {
+  useDeleteContactMessageMutation,
+  useGetAllContactMessagesQuery,
+} from "../../../../redux/features/auth/contacts/contactApi";
 
 const ManageContact = () => {
   // RTK Query ব্যবহার করে ডাটা ও লোডিং স্ট্যাটাস ফেচ করা
-  const { data: contactData, isLoading, isError } = useGetAllContactMessagesQuery();
+  const {
+    data: contactData,
+    isLoading,
+    isError,
+  } = useGetAllContactMessagesQuery();
   const [deleteContactMessage] = useDeleteContactMessageMutation();
 
   // ব্যাকএন্ডের রেসপন্স ফরম্যাট অনুযায়ী ডাটা এক্সট্র্যাক্ট করা
@@ -12,7 +18,10 @@ const ManageContact = () => {
 
   // কন্টাক্ট ডিলিট হ্যান্ডলার
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this contact message?")) return;
+    if (
+      !window.confirm("Are you sure you want to delete this contact message?")
+    )
+      return;
 
     try {
       const res = await deleteContactMessage(id).unwrap();
@@ -21,7 +30,9 @@ const ManageContact = () => {
       }
     } catch (error) {
       console.error("Delete Error:", error);
-      alert("Failed to delete: " + (error?.data?.message || "Something went wrong"));
+      alert(
+        "Failed to delete: " + (error?.data?.message || "Something went wrong"),
+      );
     }
   };
 
@@ -30,7 +41,11 @@ const ManageContact = () => {
   }
 
   if (isError) {
-    return <div className="error-text">Failed to load messages. Check server connection.</div>;
+    return (
+      <div className="error-text">
+        Failed to load messages. Check server connection.
+      </div>
+    );
   }
 
   return (
@@ -78,7 +93,9 @@ const ManageContact = () => {
                   </td>
                   <td>
                     <small className="date-text">
-                      {new Date(item.createdAt || Date.now()).toLocaleDateString("en-US", {
+                      {new Date(
+                        item.createdAt || Date.now(),
+                      ).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
                         day: "numeric",

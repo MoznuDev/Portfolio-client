@@ -1,5 +1,4 @@
-import { useGetClientsQuery } from "../../redux/featurs/client/clientApi";
-
+import { useGetClientsQuery } from "../../redux/features/client/clientApi";
 
 const Client = () => {
   const { data: response, isLoading, isError, error } = useGetClientsQuery();
@@ -22,7 +21,6 @@ const Client = () => {
   return (
     <section className="client-section">
       <div className="client-container">
-        
         {/* Header */}
         <div className="client-header">
           <div className="client-badge">
@@ -56,7 +54,7 @@ const Client = () => {
                     className="client-logo"
                     loading="lazy"
                   />
-                  
+
                   {/* ক্লায়েন্টের নাম দেখানোর জন্য (লোগোর নিচে) */}
                   {client.name && (
                     <span className="client-name">{client.name}</span>
@@ -66,7 +64,6 @@ const Client = () => {
             })}
           </div>
         )}
-
       </div>
     </section>
   );

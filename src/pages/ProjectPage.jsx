@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { FaExternalLinkAlt, FaGithub, FaFolder, FaStar } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { useGetProjectsQuery } from '../redux/featurs/project/projectsApi';
+
+import { FaExternalLinkAlt, FaGithub, FaFolder, FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useGetProjectsQuery } from "../redux/features/project/projectApi";
 
 const ProjectsPage = () => {
   // RTK Query কল
@@ -37,7 +37,7 @@ const ProjectsPage = () => {
       <div className="text-center py-12 text-red-400">
         <p className="text-lg font-semibold">Failed to load projects!</p>
         <p className="text-sm text-gray-400 mt-1">
-          {error?.data?.message || error?.error || 'Something went wrong.'}
+          {error?.data?.message || error?.error || "Something went wrong."}
         </p>
       </div>
     );
@@ -54,7 +54,6 @@ const ProjectsPage = () => {
 
   return (
     <div className="projects-container py-16 px-4 max-w-7xl mx-auto">
-      
       {/* 💡 Title Section-এ মার্জিন ও প্যাডিং বাড়িয়ে গ্যাপ তৈরি করা হলো */}
       <div className="text-center mb-16 pt-6">
         <h1 className="text-3xl md:text-5xl font-bold text-cyan-400 tracking-wide">
@@ -70,17 +69,30 @@ const ProjectsPage = () => {
         {projects.map((project, index) => {
           const projectId = project?._id || project?.id;
 
-          const imageUrl = project?.projectImage || project?.image || project?.thumbnail;
-          const liveUrl = project?.liveUrl || project?.liveLink || project?.live;
+          const imageUrl =
+            project?.projectImage || project?.image || project?.thumbnail;
+          const liveUrl =
+            project?.liveUrl || project?.liveLink || project?.live;
           const githubClient = project?.githubClient || project?.githubLink;
           const githubServer = project?.githubServer;
 
-          const reviews = Array.isArray(project?.reviews) ? project.reviews : [];
-          const totalReviews = reviews.length > 0 ? reviews.length : (Number(project?.numReviews) || 0);
+          const reviews = Array.isArray(project?.reviews)
+            ? project.reviews
+            : [];
+          const totalReviews =
+            reviews.length > 0
+              ? reviews.length
+              : Number(project?.numReviews) || 0;
 
-          const avgRating = reviews.length > 0
-            ? (reviews.reduce((acc, curr) => acc + (Number(curr.rating) || 0), 0) / reviews.length).toFixed(1)
-            : Number(project?.rating || 0).toFixed(1);
+          const avgRating =
+            reviews.length > 0
+              ? (
+                  reviews.reduce(
+                    (acc, curr) => acc + (Number(curr.rating) || 0),
+                    0,
+                  ) / reviews.length
+                ).toFixed(1)
+              : Number(project?.rating || 0).toFixed(1);
 
           return (
             <div
@@ -90,11 +102,11 @@ const ProjectsPage = () => {
               <div>
                 {/* 🖼️ Project Image Container */}
                 <div className="relative group h-48 w-full bg-gray-900 overflow-hidden">
-                  <Link to={projectId ? `/projects/${projectId}` : '#'}>
+                  <Link to={projectId ? `/projects/${projectId}` : "#"}>
                     {imageUrl ? (
                       <img
                         src={imageUrl}
-                        alt={project?.title || 'Project Image'}
+                        alt={project?.title || "Project Image"}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
@@ -147,7 +159,7 @@ const ProjectsPage = () => {
                   </div>
 
                   {/* Title */}
-                  <Link to={projectId ? `/projects/${projectId}` : '#'}>
+                  <Link to={projectId ? `/projects/${projectId}` : "#"}>
                     <h2 className="text-xl font-semibold text-white mb-2 line-clamp-1 hover:text-cyan-400 transition-colors">
                       {project.title}
                     </h2>
@@ -159,18 +171,19 @@ const ProjectsPage = () => {
                   </p>
 
                   {/* Technologies */}
-                  {Array.isArray(project.technologies) && project.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="text-xs bg-cyan-950 text-cyan-300 px-2.5 py-1 rounded border border-cyan-800/40"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  {Array.isArray(project.technologies) &&
+                    project.technologies.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="text-xs bg-cyan-950 text-cyan-300 px-2.5 py-1 rounded border border-cyan-800/40"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                 </div>
               </div>
 
@@ -179,7 +192,7 @@ const ProjectsPage = () => {
                 <div className="flex items-center gap-1.5">
                   <FaStar className="text-yellow-400 text-xs" />
                   <span className="text-xs font-semibold text-white">
-                    {totalReviews > 0 ? avgRating : 'New'}
+                    {totalReviews > 0 ? avgRating : "New"}
                   </span>
                   {totalReviews > 0 && (
                     <span className="text-[11px] text-gray-400">

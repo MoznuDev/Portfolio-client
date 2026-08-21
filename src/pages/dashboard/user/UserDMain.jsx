@@ -10,10 +10,17 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { useGetUserStatsQuery } from "../../../redux/featurs/starts/startsApi";
+import { useGetUserStatsQuery } from "../../../redux/features/starts/startsApi";
 import Loading from "../../../components/Loding";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 const UserDMain = () => {
   const { user } = useSelector((state) => state.auth);
@@ -31,7 +38,11 @@ const UserDMain = () => {
   }
 
   const stats = UserData?.data || {};
-  const { totalPayments = 0, totalPurchasedProducts = 0, totalReviews = 0 } = stats;
+  const {
+    totalPayments = 0,
+    totalPurchasedProducts = 0,
+    totalReviews = 0,
+  } = stats;
 
   // Chart Data with Project Color Theme
   const data = {
@@ -81,7 +92,8 @@ const UserDMain = () => {
       <div className="dashboard-header">
         <h2 className="dashboard-title">User Dashboard</h2>
         <p className="welcome-text">
-          Hi, <span className="highlight-user">{user?.username || "User"}</span>! Welcome to your dashboard.
+          Hi, <span className="highlight-user">{user?.username || "User"}</span>
+          ! Welcome to your dashboard.
         </p>
       </div>
 
