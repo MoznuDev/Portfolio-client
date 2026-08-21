@@ -151,7 +151,9 @@ const AddService = () => {
               <input
                 type="text"
                 value={tech}
-                onChange={(e) => handleArrayChange(index, e.target.value, "tech")}
+                onChange={(e) =>
+                  handleArrayChange(index, e.target.value, "tech")
+                }
                 placeholder={`Technology ${index + 1} (e.g. Figma)`}
                 required
               />
@@ -183,7 +185,9 @@ const AddService = () => {
               <input
                 type="text"
                 value={feature}
-                onChange={(e) => handleArrayChange(index, e.target.value, "feature")}
+                onChange={(e) =>
+                  handleArrayChange(index, e.target.value, "feature")
+                }
                 placeholder={`Feature ${index + 1}`}
                 required
               />

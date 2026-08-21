@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useLogoutUserMutation } from "../../redux/features/auth/authApi";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/auth/authSlice";
+import { useLogoutUserMutation } from "../../../../redux/features/auth/authApi";
 
 const navItem = [
   { path: "/dashboard/admin", label: "Dashboard" },

@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import getBaseUrl from "../../../utils/getBaseUrl";
 
-
 const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 
 export const statsApi = createApi({
   reducerPath: "statsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${rawBaseUrl}/api/stats`, 
+    baseUrl: `${rawBaseUrl}/api/stats`,
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState()?.auth?.token || localStorage.getItem("token");
@@ -19,31 +18,26 @@ export const statsApi = createApi({
   }),
   tagTypes: ["Stats", "Orders"],
   endpoints: (builder) => ({
-
     getStats: builder.query({
       query: () => "/stats",
       providesTags: ["Stats"],
     }),
 
-  
     getAdminStats: builder.query({
       query: () => "/stats/admin-stats",
       providesTags: ["Stats"],
     }),
 
-  
     getUserStats: builder.query({
       query: (email) => `/stats/user-stats/${email}`,
       providesTags: ["Stats"],
     }),
-
 
     getOrdersByEmail: builder.query({
       query: (email) => `/orders/user/${email}`,
       providesTags: ["Orders"],
     }),
 
-  
     updateStats: builder.mutation({
       query: (data) => ({
         url: "/stats",
@@ -55,12 +49,11 @@ export const statsApi = createApi({
   }),
 });
 
-
 export const {
   useGetStatsQuery,
   useGetAdminStatsQuery,
   useGetUserStatsQuery,
-  useGetOrdersByEmailQuery, 
+  useGetOrdersByEmailQuery,
   useUpdateStatsMutation,
 } = statsApi;
 

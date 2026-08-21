@@ -53,7 +53,8 @@ const AddBlog = () => {
   };
 
   const handleAddTag = () => setTags([...tags, ""]);
-  const handleRemoveTag = (index) => setTags(tags.filter((_, i) => i !== index));
+  const handleRemoveTag = (index) =>
+    setTags(tags.filter((_, i) => i !== index));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -142,7 +143,11 @@ const AddBlog = () => {
         <div className="form-row">
           <div className="form-group">
             <label>Category</label>
-            <select name="category" value={formData.category} onChange={handleChange}>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
               <option value="Backend Development">Backend Development</option>
               <option value="Frontend Development">Frontend Development</option>
               <option value="Full Stack">Full Stack</option>
@@ -235,7 +240,11 @@ const AddBlog = () => {
               )}
             </div>
           ))}
-          <button type="button" onClick={handleAddTag} className="add-field-btn">
+          <button
+            type="button"
+            onClick={handleAddTag}
+            className="add-field-btn"
+          >
             <RiAddLine /> Add Tag
           </button>
         </div>

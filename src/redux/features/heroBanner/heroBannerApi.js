@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import getBaseUrl from "../../../utils/getBaseUrl";
 
-
 const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 
 export const heroBannerApi = createApi({

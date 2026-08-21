@@ -13,7 +13,7 @@ const UpdateProject = ({ project, onBack, onUpdateSuccess }) => {
   });
 
   const [technologies, setTechnologies] = useState(
-    project?.technologies?.length ? project.technologies : [""]
+    project?.technologies?.length ? project.technologies : [""],
   );
   const [loading, setLoading] = useState(false);
 
@@ -32,48 +32,55 @@ const UpdateProject = ({ project, onBack, onUpdateSuccess }) => {
   };
 
   const handleAddTech = () => setTechnologies([...technologies, ""]);
-  const handleRemoveTech = (index) => setTechnologies(technologies.filter((_, i) => i !== index));
+  const handleRemoveTech = (index) =>
+    setTechnologies(technologies.filter((_, i) => i !== index));
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const projectId = project?._id || project?.id;
-  if (!projectId) {
-    alert("Invalid Project ID");
-    return;
-  }
-
-  setLoading(true);
-
-  const updatedData = {
-    ...formData,
-    order: Number(formData.order),
-    technologies: technologies.filter((t) => t.trim() !== ""),
-  };
-
-  try {
-    const res = await fetch(`http://localhost:5000/api/projects/${projectId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedData),
-    });
-
-    const result = await res.json();
-
-    if (res.ok && (result.success || result.acknowledged)) {
-      alert("Project updated successfully!");
-      onUpdateSuccess();
-    } else {
-      // ব্যাকএন্ডের আসল এরর মেসেজ অ্যালার্টে দেখানো
-      alert("Update failed: " + (result.message || result.error || "Unknown server error"));
+    const projectId = project?._id || project?.id;
+    if (!projectId) {
+      alert("Invalid Project ID");
+      return;
     }
-  } catch (error) {
-    console.error("Update Error:", error);
-    alert("Network or Server error: " + error.message);
-  } finally {
-    setLoading(false);
-  }
-};
+
+    setLoading(true);
+
+    const updatedData = {
+      ...formData,
+      order: Number(formData.order),
+      technologies: technologies.filter((t) => t.trim() !== ""),
+    };
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/projects/${projectId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedData),
+        },
+      );
+
+      const result = await res.json();
+
+      if (res.ok && (result.success || result.acknowledged)) {
+        alert("Project updated successfully!");
+        onUpdateSuccess();
+      } else {
+        // ব্যাকএন্ডের আসল এরর মেসেজ অ্যালার্টে দেখানো
+        alert(
+          "Update failed: " +
+            (result.message || result.error || "Unknown server error"),
+        );
+      }
+    } catch (error) {
+      console.error("Update Error:", error);
+      alert("Network or Server error: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="form-container">
       <button onClick={onBack} className="back-btn">
@@ -107,7 +114,11 @@ const UpdateProject = ({ project, onBack, onUpdateSuccess }) => {
         <div className="form-row">
           <div className="form-group">
             <label>Category</label>
-            <select name="category" value={formData.category} onChange={handleChange}>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
               <option value="Full Stack">Full Stack</option>
               <option value="Frontend">Frontend</option>
               <option value="Backend">Backend</option>
@@ -117,7 +128,11 @@ const UpdateProject = ({ project, onBack, onUpdateSuccess }) => {
 
           <div className="form-group">
             <label>Status</label>
-            <select name="status" value={formData.status} onChange={handleChange}>
+            <select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+            >
               <option value="completed">Completed</option>
               <option value="in-progress">In Progress</option>
               <option value="planned">Planned</option>
@@ -169,7 +184,11 @@ const UpdateProject = ({ project, onBack, onUpdateSuccess }) => {
               )}
             </div>
           ))}
-          <button type="button" onClick={handleAddTech} className="add-field-btn">
+          <button
+            type="button"
+            onClick={handleAddTech}
+            className="add-field-btn"
+          >
             <RiAddLine /> Add Technology
           </button>
         </div>

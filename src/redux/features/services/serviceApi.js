@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import getBaseUrl from "../../../utils/getBaseUrl";
 
-
 // Base URL clean up (Trailing slash সরিয়ে ফেলা)
 const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 
@@ -26,15 +25,18 @@ export const serviceApi = createApi({
       query: () => "",
       providesTags: (result) => {
         // Backend Response থেকে Array টি সঠিকভাবে বের করা
-        const servicesList = Array.isArray(result) 
-          ? result 
-          : Array.isArray(result?.data) 
-          ? result.data 
-          : [];
+        const servicesList = Array.isArray(result)
+          ? result
+          : Array.isArray(result?.data)
+            ? result.data
+            : [];
 
         return servicesList.length > 0
           ? [
-              ...servicesList.map(({ _id, id }) => ({ type: "Services", id: _id || id })),
+              ...servicesList.map(({ _id, id }) => ({
+                type: "Services",
+                id: _id || id,
+              })),
               { type: "Services", id: "LIST" },
             ]
           : [{ type: "Services", id: "LIST" }];

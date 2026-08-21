@@ -11,13 +11,7 @@ const PrivateRoute = ({ children, role }) => {
 
   // Login না থাকলে Login Page-এ পাঠাবে
   if (!authToken) {
-    return (
-      <Navigate
-        to="/login"
-        state={{ from: location }}
-        replace
-      />
-    );
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   // Role Check (Admin হলে)

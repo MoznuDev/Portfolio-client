@@ -4,7 +4,7 @@ import {
   useDeleteHeroBannerMutation,
   useGetHeroBannerQuery,
   useUpdateHeroBannerMutation,
-} from "../../../../../redux/features/heroBanner/heroBannerApi";
+} from "../../../../redux/features/heroBanner/heroBannerApi";
 
 const ManageHeroBanner = () => {
   const { data: bannerData, isLoading: fetching } = useGetHeroBannerQuery();

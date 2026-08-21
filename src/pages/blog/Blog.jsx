@@ -1,5 +1,5 @@
 import { Clock } from "lucide-react";
-import { useGetBlogsQuery } from "../../../redux/features/blogs/blogApi";
+import { useGetBlogsQuery } from "../../redux/features/blogs/blogApi";
 
 const Blog = () => {
   const { data: response, isLoading, isError, error } = useGetBlogsQuery();

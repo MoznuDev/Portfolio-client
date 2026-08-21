@@ -1,4 +1,3 @@
-
 const TermsOfService = () => {
   const lastUpdated = "August 19, 2026";
 
@@ -54,7 +53,9 @@ const TermsOfService = () => {
         {/* Content Body */}
         <div className="tos-content-card">
           <p className="tos-intro">
-            Welcome to my official portfolio. Please read these Terms of Service carefully before utilizing any resources, reviewing code repositories, or submitting inquiries.
+            Welcome to my official portfolio. Please read these Terms of Service
+            carefully before utilizing any resources, reviewing code
+            repositories, or submitting inquiries.
           </p>
 
           <div className="tos-sections-list">

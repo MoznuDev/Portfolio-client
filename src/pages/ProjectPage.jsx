@@ -1,4 +1,3 @@
-
 import { FaExternalLinkAlt, FaGithub, FaFolder, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetProjectsQuery } from "../redux/features/project/projectApi";

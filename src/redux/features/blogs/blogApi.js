@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import getBaseUrl from "../../../utils/getBaseUrl";
 
-
 const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 
 export const blogApi = createApi({
   reducerPath: "blogApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${rawBaseUrl}/api/blogs`, // ব্যাকএন্ডের মূল ব্লগ রাউট
+    baseUrl: `${rawBaseUrl}/api/blogs`, 
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState()?.auth?.token || localStorage.getItem("token");
@@ -48,7 +47,10 @@ export const blogApi = createApi({
         method: "PATCH",
         body: updatedBlog,
       }),
-      invalidatesTags: (result, error, { id }) => ["Blogs", { type: "Blogs", id }],
+      invalidatesTags: (result, error, { id }) => [
+        "Blogs",
+        { type: "Blogs", id },
+      ],
     }),
 
     // ৫. ব্লগ ডিলিট করার জন্য (DELETE /api/blogs/:id)

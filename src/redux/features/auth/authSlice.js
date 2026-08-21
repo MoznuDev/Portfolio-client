@@ -44,7 +44,8 @@ const authSlice = createSlice({
       const { user, token } = action.payload;
 
       // টোকেন থেকে অতিরিক্ত Quote বা Space ক্লিন করা
-      const cleanToken = typeof token === "string" ? token.replace(/"/g, "").trim() : token;
+      const cleanToken =
+        typeof token === "string" ? token.replace(/"/g, "").trim() : token;
 
       state.user = user;
       state.token = cleanToken;
@@ -54,7 +55,7 @@ const authSlice = createSlice({
         // ১. 'auth' অবজেক্ট আকারে সেভ করা
         localStorage.setItem(
           "auth",
-          JSON.stringify({ user, token: cleanToken })
+          JSON.stringify({ user, token: cleanToken }),
         );
 
         // ২. আলাদাভাবে 'token' কি-তেও সেভ রাখা (নিরাপত্তার জন্য)

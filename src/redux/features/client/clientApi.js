@@ -2,12 +2,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const clientApi = createApi({
   reducerPath: "clientApi",
-  baseQuery: fetchBaseQuery({ 
-    baseUrl: "http://localhost:5000/api/client" 
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:5000/api/client",
   }),
   tagTypes: ["Clients"],
   endpoints: (builder) => ({
-    
     // ১. সব ক্লায়েন্ট লোগো ফেচ করার জন্য
     getClients: builder.query({
       query: () => "/clients",
@@ -32,15 +31,14 @@ export const clientApi = createApi({
       }),
       invalidatesTags: ["Clients"],
     }),
-
   }),
 });
 
 // Auto-generated hooks Export
-export const { 
-  useGetClientsQuery, 
-  useAddClientMutation, 
-  useDeleteClientMutation 
+export const {
+  useGetClientsQuery,
+  useAddClientMutation,
+  useDeleteClientMutation,
 } = clientApi;
 
 export default clientApi;

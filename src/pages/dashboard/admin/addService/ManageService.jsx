@@ -31,7 +31,8 @@ const ManageService = () => {
 
   // ২. Delete Handler
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this service?")) return;
+    if (!window.confirm("Are you sure you want to delete this service?"))
+      return;
 
     try {
       const res = await fetch(`${API_URL}/${id}`, {
@@ -53,7 +54,7 @@ const ManageService = () => {
   // ৩. আপডেট হওয়ার পর লোকাল স্টেট আপডেট করার হ্যান্ডলার
   const handleUpdateSuccess = (updatedData) => {
     setServices((prev) =>
-      prev.map((item) => (item._id === updatedData._id ? updatedData : item))
+      prev.map((item) => (item._id === updatedData._id ? updatedData : item)),
     );
     setSelectedService(null); // মোডাল বন্ধ করা
   };
@@ -129,7 +130,7 @@ const ManageService = () => {
                   </td>
                   <td>
                     <div className="action-buttons">
-                      <button 
+                      <button
                         onClick={() => setSelectedService(service)}
                         className="edit-btn"
                       >

@@ -11,7 +11,7 @@ const ManageBlog = () => {
     try {
       const res = await fetch("http://localhost:5000/api/blogs");
       const data = await res.json();
-      
+
       if (data.success) {
         // ব্যাকএন্ড response key data.data নাকি data.blogs বা সরাসরি array তা হ্যান্ডেল করা
         const blogList = data.data || data.blogs || [];
@@ -31,7 +31,8 @@ const ManageBlog = () => {
 
   // ২. ডিলিট হ্যান্ডলার
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this blog post?")) return;
+    if (!window.confirm("Are you sure you want to delete this blog post?"))
+      return;
 
     try {
       const res = await fetch(`http://localhost:5000/api/blogs/${id}`, {
@@ -102,7 +103,9 @@ const ManageBlog = () => {
                   <td>
                     <strong>{item.title}</strong>
                     <br />
-                    <span className="badge category-badge">{item.category}</span>
+                    <span className="badge category-badge">
+                      {item.category}
+                    </span>
                   </td>
                   <td>
                     <div className="tag-group">
@@ -118,7 +121,9 @@ const ManageBlog = () => {
                   </td>
                   <td>{item.readTime}</td>
                   <td>
-                    <span className={`badge ${item.isFeatured ? "featured" : "not-featured"}`}>
+                    <span
+                      className={`badge ${item.isFeatured ? "featured" : "not-featured"}`}
+                    >
                       {item.isFeatured ? "Yes" : "No"}
                     </span>
                   </td>

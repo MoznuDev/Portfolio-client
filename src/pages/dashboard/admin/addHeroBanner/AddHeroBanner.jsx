@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAddHeroBannerMutation } from "../../../../../redux/features/hero/heroBannerApi";
+import { useAddHeroBannerMutation } from "../../../../redux/features/heroBanner/heroBannerApi";
 
 const AddHeroBanner = () => {
   const [formData, setFormData] = useState({
