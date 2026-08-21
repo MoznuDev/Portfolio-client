@@ -58,3 +58,5 @@ export const {
   useUpdateResumeMutation,
   useDeleteResumeMutation,
 } = resumeApi;
+
+export default resumeApi;

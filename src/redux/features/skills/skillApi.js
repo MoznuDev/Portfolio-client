@@ -3,7 +3,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const skillApi = createApi({
   reducerPath: "skillApi",
   baseQuery: fetchBaseQuery({
-    
     baseUrl: "http://localhost:5000/api/skills",
   }),
   tagTypes: ["Skills"],
@@ -24,12 +23,11 @@ export const skillApi = createApi({
       invalidatesTags: ["Skill"],
     }),
 
-    // 3. Update Skill 
+    // 3. Update Skill
     updateSkill: builder.mutation({
       query: ({ id, ...updatedData }) => ({
-       
-        url: `/${id}`, 
-        method: "PUT", 
+        url: `/${id}`,
+        method: "PUT",
         body: updatedData,
       }),
       invalidatesTags: ["Skills"],
@@ -49,6 +47,7 @@ export const skillApi = createApi({
 export const {
   useGetSkillsQuery,
   useAddSkillMutation,
-  useUpdateSkillMutation, 
+  useUpdateSkillMutation,
   useDeleteSkillMutation,
 } = skillApi;
+export default skillApi;

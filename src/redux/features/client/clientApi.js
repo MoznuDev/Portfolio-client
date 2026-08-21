@@ -42,3 +42,5 @@ export const {
   useAddClientMutation, 
   useDeleteClientMutation 
 } = clientApi;
+
+export default clientApi;
