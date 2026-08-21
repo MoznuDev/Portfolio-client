@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
-import Loading from "../../../../components/Loding";
-
+import Loading from "../../../../components/Loading";
 
 const UserOrders = () => {
   const { user } = useSelector((state) => state.auth);
@@ -44,7 +43,9 @@ const UserOrders = () => {
                   <td>{order._id}</td>
                   <td>${order.totalPrice}</td>
                   <td>
-                    <span className={`status-badge ${order.status?.toLowerCase()}`}>
+                    <span
+                      className={`status-badge ${order.status?.toLowerCase()}`}
+                    >
                       {order.status || "Pending"}
                     </span>
                   </td>

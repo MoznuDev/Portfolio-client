@@ -2,9 +2,8 @@ import { useSelector } from "react-redux";
 import AdminStats from "./AdminStats";
 
 import AdminStatsChart from "./AdminStatsChart";
-import Loading from "../../../../components/Loding";
+import Loading from "../../../../components/Loading";
 import { useGetAdminStatsQuery } from "../../../../redux/features/stats/statsApi";
-
 
 const AdminDMain = () => {
   const { user } = useSelector((state) => state.auth);
