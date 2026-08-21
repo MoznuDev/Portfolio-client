@@ -6,11 +6,11 @@ import authReducer from "./features/auth/authSlice";
 
 import authApi from "./features/auth/authApi";
 import heroBannerApi from "./features/heroBanner/heroBannerApi";
-import serviceApi from "./features/service/serviceApi";
-import skillApi from "./features/skill/skillApi";
+import serviceApi from "./features/services/serviceApi";
+import skillApi from "./features/skills/skillApi";
 import projectApi from "./features/project/projectApi";
 import testimonialsApi from "./features/testimonials/testimonialsApi";
-import reviewApi from "./features/review/reviewApi";
+import reviewApi from "./features/reviews/reviewApi";
 import blogApi from "./features/blogs/blogApi";
 import contactApi from "./features/auth/contacts/contactApi";
 import statsApi from "./features/stats/statsApi";
