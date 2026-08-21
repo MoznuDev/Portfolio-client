@@ -1,24 +1,24 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-// ১. Auth Slice Import (User state & Token ধরে রাখার জন্য)
+// Reducer Imports
 import authReducer from "./features/auth/authSlice";
 
-// ২. API Slices Import
-import { authApi } from "./features/auth/authApi";
-import { heroBannerApi } from "./features/hero/heroBannerApi";
-import { serviceApi } from "./features/services/serviceApi";
-import { projectApi } from "./features/project/projectApi";
-import { testimonialsApi } from "./features/testimonials/testimonialsApi";
-import { reviewApi } from "./features/reviews/reviewApi";
-import { blogApi } from "./features/blog/blogApi";
-import { contactApi } from "./features/auth/contacts/contactApi";
-import { statsApi } from "./features/starts/startsApi";
-import { clientApi } from "./features/client/clientApi";
-import { resumeApi } from "./features/resume/resumeApi";
-import { skillApi } from "./features/skill/skillApi";
 
+import  authApi  from "./features/auth/authApi";
+import  heroBannerApi  from "./features/heroBanner/heroBannerApi";
+import  serviceApi  from "./features/service/serviceApi";
+import  skillApi  from "./features/skill/skillApi";
+import  projectApi  from "./features/project/projectApi";
+import  testimonialsApi  from "./features/testimonials/testimonialsApi";
+import  reviewApi  from "./features/review/reviewApi";
+import blogApi from "./features/blog/blogApi";
+import contactApi from "./features/auth/contacts/contactApi";
+import  statsApi  from "./features/stats/statsApi";
+import  clientApi  from "./features/client/clientApi";
+import  resumeApi  from "./features/resume/resumeApi";
 
+// API Array for Middleware
 const apis = [
   authApi,
   heroBannerApi,
@@ -35,7 +35,6 @@ const apis = [
 ];
 
 export const store = configureStore({
-  // ৩. Reducers
   reducer: {
     // Auth State Reducer
     auth: authReducer,
@@ -55,15 +54,14 @@ export const store = configureStore({
     [resumeApi.reducerPath]: resumeApi.reducer,
   },
 
-  // ৪. Middlewares (Spread operator দিয়ে)
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(...apis.map((api) => api.middleware)),
+    }).concat(apis.map((api) => api.middleware)),
+
   devTools: import.meta.env.DEV,
 });
 
-// Refetch on focus / reconnect সেটআপ
 setupListeners(store.dispatch);
 
 export default store;
