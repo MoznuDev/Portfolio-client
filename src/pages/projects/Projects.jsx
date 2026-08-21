@@ -8,7 +8,7 @@ import {
   FaChevronUp,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useGetProjectsQuery } from "../../redux/features/project/projectApi";
+import { useGetProjectsQuery } from "../../../redux/features/project/projectApi";
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All Projects");

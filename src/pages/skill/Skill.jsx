@@ -1,4 +1,4 @@
-import { useGetSkillsQuery } from "../../redux/features/skill/skillApi";
+import { useGetSkillsQuery } from "../../../redux/features/skill/skillApi";
 import DynamicIcon from "../../../components/DynamicIcon"; 
 
 const Skill = () => {
