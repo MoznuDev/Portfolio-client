@@ -4,13 +4,26 @@ export const skillApi = createApi({
   reducerPath: "skillApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://portfolio-backend-i63g.vercel.app/api/skill",
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token"); // যদি টোকেন থাকে
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
-  tagTypes: ["skill"],
+  tagTypes: ["Skill"],
   endpoints: (builder) => ({
-    // 1. Get All skill
-    getskill: builder.query({
-      query: () => "/",
-      providesTags: ["Skill"],
+    // 1. Get All Skills
+    getSkills: builder.query({
+      query: (category) => (category ? `?category=${category}` : "/"),
+      providesTags: (result) =>
+        result?.data
+          ? [
+              ...result.data.map(({ _id }) => ({ type: "Skill", id: _id })),
+              { type: "Skill", id: "LIST" },
+            ]
+          : [{ type: "Skill", id: "LIST" }],
     }),
 
     // 2. Add Skill
@@ -20,7 +33,7 @@ export const skillApi = createApi({
         method: "POST",
         body: newSkill,
       }),
-      invalidatesTags: ["Skill"],
+      invalidatesTags: [{ type: "Skill", id: "LIST" }],
     }),
 
     // 3. Update Skill
@@ -30,7 +43,10 @@ export const skillApi = createApi({
         method: "PUT",
         body: updatedData,
       }),
-      invalidatesTags: ["skill"],
+      invalidatesTags: (result, error, { id }) => [
+        { type: "Skill", id },
+        { type: "Skill", id: "LIST" },
+      ],
     }),
 
     // 4. Delete Skill
@@ -39,15 +55,19 @@ export const skillApi = createApi({
         url: `/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["skill"],
+      invalidatesTags: (result, error, id) => [
+        { type: "Skill", id },
+        { type: "Skill", id: "LIST" },
+      ],
     }),
   }),
 });
 
 export const {
-  useGetskillQuery,
+  useGetSkillsQuery,
   useAddSkillMutation,
   useUpdateSkillMutation,
   useDeleteSkillMutation,
 } = skillApi;
+
 export default skillApi;
