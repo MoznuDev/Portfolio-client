@@ -6,7 +6,7 @@ const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 export const projectApi = createApi({
   reducerPath: "projectApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${rawBaseUrl}/api/project`,
+    baseUrl: `${rawBaseUrl}/api/project`, // প্রয়োজন হলে 'projects' করে নিতে পারেন
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState()?.auth?.token || localStorage.getItem("token");
@@ -38,7 +38,7 @@ export const projectApi = createApi({
       },
     }),
 
-    // ২. নির্দিষ্ট একটি Project-এর ডাটা পাওয়ার জন্য (ID দিয়ে)
+    // ২. নির্দিষ্ট একটি Project-এর ডাটা পাওয়ার জন্য (ID বা Slug দিয়ে)
     getProjectById: builder.query({
       query: (id) => `/${id}`,
       providesTags: (result, error, id) => [{ type: "Project", id }],
@@ -54,15 +54,22 @@ export const projectApi = createApi({
       invalidatesTags: [{ type: "Project", id: "LIST" }],
     }),
 
-    // ৪. Project আপডেট করার জন্য (PUT/PATCH backend অনুযায়ী)
+    // ৪. Project আপডেট করার জন্য
     updateProject: builder.mutation({
-      query: ({ id, ...data }) => ({
-        url: `/${id}`,
-        method: "PUT",
-        body: data,
-      }),
-      invalidatesTags: (result, error, { id }) => [
-        { type: "Project", id },
+      query: (args) => {
+        // Safe extraction (হয় { id, data } অথবা { id, ...restData })
+        const id = args.id;
+        const body = args.data ? args.data : { ...args };
+        delete body.id;
+
+        return {
+          url: `/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: (result, error, args) => [
+        { type: "Project", id: args.id },
         { type: "Project", id: "LIST" },
       ],
     }),
@@ -79,7 +86,7 @@ export const projectApi = createApi({
       ],
     }),
 
-    // ৬. প্রজেক্টের রিভিউসমূহ পাওয়ার জন্য (নতুন যুক্ত করা হলো)
+    // ৬. প্রজেক্টের রিভিউসমূহ পাওয়ার জন্য
     getReviewsByProjectId: builder.query({
       query: (projectId) => `/${projectId}/reviews`,
       providesTags: (result, error, projectId) => [
@@ -87,7 +94,7 @@ export const projectApi = createApi({
       ],
     }),
 
-    // ৭. নতুন রিভিউ যোগ করার জন্য (নতুন যুক্ত করা হলো)
+    // ৭. নতুন রিভিউ যোগ করার জন্য
     addReview: builder.mutation({
       query: ({ projectId, ...reviewData }) => ({
         url: `/${projectId}/reviews`,

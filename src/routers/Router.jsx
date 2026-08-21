@@ -26,7 +26,7 @@ import AddBlog from "../pages/dashboard/admin/blog/AddBlog";
 import ManageBlog from "../pages/dashboard/admin/blog/ManageBlog";
 import ManageContact from "../pages/dashboard/admin/contact/ManageContact";
 import UserOrders from "../pages/dashboard/user/orders/UserOrder";
-import SingleProjectPage from "../pages/projects/SingleProjectPage";
+import SingleProjectPage from "../pages/project/SingleProjectPage";
 import About from "../pages/about/About";
 import Discover from "../pages/discover/Discover";
 import Explore from "../pages/explore/Explore";

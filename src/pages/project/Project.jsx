@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   FaExternalLinkAlt,
   FaGithub,
@@ -10,14 +10,60 @@ import {
 import { Link } from "react-router-dom";
 import { useGetProjectsQuery } from "../../redux/features/project/projectApi";
 
+// Helper function to calculate ratings cleanly
+const calculateRatingInfo = (project) => {
+  const reviews = Array.isArray(project?.reviews) ? project.reviews : [];
+  const totalReviews =
+    reviews.length > 0 ? reviews.length : Number(project?.numReviews) || 0;
 
+  const avgRating =
+    reviews.length > 0
+      ? (
+          reviews.reduce(
+            (acc, curr) => acc + (Number(curr.rating) || 0),
+            0
+          ) / reviews.length
+        ).toFixed(1)
+      : Number(project?.rating || 0).toFixed(1);
 
-const Projects = () => {
+  return { totalReviews, avgRating };
+};
+
+const Project = () => {
   const [activeCategory, setActiveCategory] = useState("All Projects");
   const [showAll, setShowAll] = useState(false);
 
-  // Redux থেকে প্রজেক্ট ডাটা ফেচ করা
+  // Redux API query
   const { data: response, isLoading, isError } = useGetProjectsQuery();
+
+  // Extract raw list
+  const rawData = response?.data || response?.projects || response;
+  const projectsList = useMemo(
+    () => (Array.isArray(rawData) ? rawData : []),
+    [rawData]
+  );
+
+  // Dynamic categories with memoization
+  const categories = useMemo(() => {
+    return [
+      "All Projects",
+      ...new Set(
+        projectsList.map((project) => project.category).filter(Boolean)
+      ),
+    ];
+  }, [projectsList]);
+
+  // Filtered project list by active category
+  const categoryFiltered = useMemo(() => {
+    return activeCategory === "All Projects"
+      ? projectsList
+      : projectsList.filter((project) => project.category === activeCategory);
+  }, [projectsList, activeCategory]);
+
+  // Projects to display (6 or All)
+  const filteredProjects = showAll
+    ? categoryFiltered
+    : categoryFiltered.slice(0, 6);
 
   if (isLoading) {
     return <div className="projects-loading">Loading Projects...</div>;
@@ -26,27 +72,6 @@ const Projects = () => {
   if (isError) {
     return <div className="projects-error">Failed to load projects.</div>;
   }
-
-  // ডাটা স্ট্রাকচার সেফলি হ্যান্ডেল করা
-  const rawData = response?.data || response?.projects || response;
-  const projectsList = Array.isArray(rawData) ? rawData : [];
-
-  // ক্যাটাগরি ফিল্টারিং লজিক
-  const categories = [
-    "All Projects",
-    ...new Set(projectsList.map((project) => project.category).filter(Boolean)),
-  ];
-
-  // একটিভ ক্যাটাগরি অনুযায়ী ফিল্টার করা প্রজেক্ট তালিকা
-  const categoryFiltered =
-    activeCategory === "All Projects"
-      ? projectsList
-      : projectsList.filter((project) => project.category === activeCategory);
-
-  // showAll true হলে সব দেখাবে, নাহলে প্রথম ৬টি দেখাবে
-  const filteredProjects = showAll
-    ? categoryFiltered
-    : categoryFiltered.slice(0, 6);
 
   return (
     <section className="projects-section" id="projects">
@@ -67,10 +92,12 @@ const Projects = () => {
             {categories.map((category, index) => (
               <button
                 key={index}
-                className={`filter-btn ${activeCategory === category ? "active" : ""}`}
+                className={`filter-btn ${
+                  activeCategory === category ? "active" : ""
+                }`}
                 onClick={() => {
                   setActiveCategory(category);
-                  setShowAll(false); // ক্যাটাগরি পাল্টালে আবার প্রথম ৬টিতে রিসেট হবে
+                  setShowAll(false);
                 }}
               >
                 {category}
@@ -81,46 +108,25 @@ const Projects = () => {
 
         {/* Projects Grid */}
         {filteredProjects.length === 0 ? (
-          <div
-            className="no-projects-found"
-            style={{ textAlign: "center", padding: "3rem 0", color: "#9ca3af" }}
-          >
+          <div className="no-projects-found text-center py-12 text-gray-400">
             <p>No projects found in this category.</p>
           </div>
         ) : (
           <>
             <div className="projects-grid">
               {filteredProjects.map((project, index) => {
-                // প্রজেক্ট আইডি
                 const projectId = project?._id || project?.id;
-
-                // ব্যাকএন্ডের বিভিন্ন ফিল্ড নেম সাপোর্ট
                 const imageUrl =
-                  project?.projectImage || project?.image || project?.thumbnail;
+                  project?.projectImage ||
+                  project?.image ||
+                  project?.thumbnail;
                 const liveUrl =
                   project?.liveUrl || project?.liveLink || project?.live;
                 const githubClient =
                   project?.githubClient || project?.githubLink;
                 const githubServer = project?.githubServer;
 
-                // সেফ রেটিং ও রিভিউ সংখ্যা গণনার লজিক
-                const reviews = Array.isArray(project?.reviews)
-                  ? project.reviews
-                  : [];
-                const totalReviews =
-                  reviews.length > 0
-                    ? reviews.length
-                    : Number(project?.numReviews) || 0;
-
-                const avgRating =
-                  reviews.length > 0
-                    ? (
-                        reviews.reduce(
-                          (acc, curr) => acc + (Number(curr.rating) || 0),
-                          0,
-                        ) / reviews.length
-                      ).toFixed(1)
-                    : Number(project?.rating || 0).toFixed(1);
+                const { totalReviews, avgRating } = calculateRatingInfo(project);
 
                 return (
                   <div
@@ -132,7 +138,6 @@ const Projects = () => {
                       <div className="folder-tab"></div>
 
                       <div className="project-image-container relative cursor-pointer">
-                        {/* ছবিতে ক্লিক করলে সিঙ্গেল প্রজেক্ট পেজে নিয়ে যাবে */}
                         <Link to={projectId ? `/projects/${projectId}` : "#"}>
                           {imageUrl ? (
                             <img
@@ -147,7 +152,7 @@ const Projects = () => {
                           )}
                         </Link>
 
-                        {/* ছবির ওপর হোভার করলে GitHub Client & Server Link থাকবে */}
+                        {/* GitHub Links Overlay */}
                         <div
                           className="project-overlay"
                           onClick={(e) => e.stopPropagation()}
@@ -176,21 +181,18 @@ const Projects = () => {
                       </div>
                     </div>
 
-                    {/* Card Bottom Meta Info */}
+                    {/* Card Bottom Info */}
                     <div className="project-info">
-                      {/* Category Badge */}
                       <span className="project-category-text">
                         {project?.category || "Web Design & Development"}
                       </span>
 
-                      {/* Title (Single Project Page-এ নেভিগেট করবে) */}
                       <Link to={projectId ? `/projects/${projectId}` : "#"}>
                         <h3 className="project-title hover:text-cyan-400 transition-colors">
                           {project?.title}
                         </h3>
                       </Link>
 
-                      {/* Description */}
                       {project?.description && (
                         <p className="project-description">
                           {project.description.length > 90
@@ -211,9 +213,8 @@ const Projects = () => {
                           </div>
                         )}
 
-                      {/* প্রজেক্ট কার্ডের ফুটার: রেটিং + একমাত্র Live Link ও Details/Review বাটন */}
+                      {/* Card Footer: Ratings & Actions */}
                       <div className="project-rating-footer flex items-center justify-between mt-3 pt-3 border-t border-gray-800">
-                        {/* রেটিং ও রিভিউ সংখ্যা */}
                         <div className="project-rating-wrapper flex items-center gap-1">
                           <FaStar className="star-icon text-yellow-400 text-xs" />
                           <span className="rating-score font-semibold text-white text-xs">
@@ -226,7 +227,6 @@ const Projects = () => {
                           )}
                         </div>
 
-                        {/* অ্যাকশন বাটন: একমাত্র Live Demo লিংক এবং Details & Review লিংক */}
                         <div className="flex items-center gap-3">
                           {liveUrl && (
                             <a
@@ -256,42 +256,21 @@ const Projects = () => {
               })}
             </div>
 
-            {/* 💡 Show More / Show Less Button Container */}
+            {/* Show More / Show Less Button */}
             {categoryFiltered.length > 6 && (
-              <div style={{ textAlign: "center", marginTop: "3rem" }}>
+              <div className="text-center mt-12">
                 <button
                   onClick={() => setShowAll(!showAll)}
-                  style={{
-                    backgroundColor: "transparent",
-                    color: "#06b6d4",
-                    border: "1px solid #06b6d4",
-                    padding: "0.75rem 2rem",
-                    borderRadius: "8px",
-                    fontWeight: "600",
-                    fontSize: "0.95rem",
-                    cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#06b6d4";
-                    e.currentTarget.style.color = "#fff";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                    e.currentTarget.style.color = "#06b6d4";
-                  }}
+                  className="bg-transparent text-cyan-400 border border-cyan-400 px-8 py-3 rounded-lg font-semibold text-sm inline-flex items-center gap-2 hover:bg-cyan-400 hover:text-white transition-all duration-300 cursor-pointer"
                 >
                   {showAll ? (
                     <>
-                      Show Less <FaChevronUp style={{ fontSize: "0.8rem" }} />
+                      Show Less <FaChevronUp className="text-xs" />
                     </>
                   ) : (
                     <>
                       More Projects ({categoryFiltered.length - 6} More){" "}
-                      <FaChevronDown style={{ fontSize: "0.8rem" }} />
+                      <FaChevronDown className="text-xs" />
                     </>
                   )}
                 </button>
@@ -304,4 +283,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Project;

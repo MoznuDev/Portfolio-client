@@ -1,7 +1,7 @@
 import Blog from "../blog/Blog";
 import Client from "../client/Client";
 import Contact from "../contact/Contact";
-import Projects from "../projects/Project";
+import Project from "../project/Project";
 import Services from "../service/Services";
 import Skill from "../skill/Skill";
 import HeroBanner from "./HeroBanner";
@@ -12,7 +12,7 @@ const Home = () => {
     <div>
       <HeroBanner />
       <Services />
-      <Projects />
+      <Project />
       <Skill />
       <Testimonials />
       <Client />

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { useGetReviewsQuery } from "../../redux/features/reviews/reviewApi";
+import { useGetReviewsQuery } from "../../redux/features/review/reviewApi";
 import RatingStars from "../../components/RatingStars";
 
 // Swiper Essential CSS
