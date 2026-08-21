@@ -7,7 +7,7 @@ const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 export const statsApi = createApi({
   reducerPath: "statsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${rawBaseUrl}/api`, // baseUrl '/api' রাখা ভালো যাতে stats ও orders দুটোতেই কাজ করে
+    baseUrl: `${rawBaseUrl}/api/stats`, 
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState()?.auth?.token || localStorage.getItem("token");

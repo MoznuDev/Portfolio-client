@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const resumeApi = createApi({
   reducerPath: 'resumeApi',
   // baseUrl-এ /resumes পর্যন্ত দেওয়া
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/resumes' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/resume' }),
   tagTypes: ['Resume'],
   endpoints: (builder) => ({
     

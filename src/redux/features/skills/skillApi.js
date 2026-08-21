@@ -3,10 +3,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const skillApi = createApi({
   reducerPath: "skillApi",
   baseQuery: fetchBaseQuery({
-    // ⚠️ আপনার server.js অনুযায়ী মূল Base URL নিশ্চিত করুন (যেমন: http://localhost:5000/api/skills)
+    
     baseUrl: "http://localhost:5000/api/skills",
   }),
-  tagTypes: ["Skill"],
+  tagTypes: ["Skills"],
   endpoints: (builder) => ({
     // 1. Get All Skills
     getSkills: builder.query({
@@ -24,16 +24,15 @@ export const skillApi = createApi({
       invalidatesTags: ["Skill"],
     }),
 
-    // 3. Update Skill (🚨 এখানে ভুল ছিল)
+    // 3. Update Skill 
     updateSkill: builder.mutation({
       query: ({ id, ...updatedData }) => ({
-        // ⚠️ নিশ্চিত করুন এখানে baseQuery-এর পর /:id সঠিকভাবে যোগ হচ্ছে
-        // যদি baseUrl "http://localhost:5000/api/skills" হয়, তবে url হবে `/${id}`
+       
         url: `/${id}`, 
-        method: "PUT", // ব্যাকএন্ডে router.put("/:id") থাকায় PUT হতে হবে
+        method: "PUT", 
         body: updatedData,
       }),
-      invalidatesTags: ["Skill"],
+      invalidatesTags: ["Skills"],
     }),
 
     // 4. Delete Skill
@@ -42,7 +41,7 @@ export const skillApi = createApi({
         url: `/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Skill"],
+      invalidatesTags: ["Skills"],
     }),
   }),
 });
@@ -50,6 +49,6 @@ export const skillApi = createApi({
 export const {
   useGetSkillsQuery,
   useAddSkillMutation,
-  useUpdateSkillMutation, // 👈 এটি আপডেট ফর্মে ব্যবহার করবেন
+  useUpdateSkillMutation, 
   useDeleteSkillMutation,
 } = skillApi;

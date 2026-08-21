@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import getBaseUrl from "../../../utils/getBaseURL";
+import getBaseUrl from "../../../utils/getBaseUrl";
+
 
 const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 
 export const projectApi = createApi({
   reducerPath: "projectApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${rawBaseUrl}/api/projects`,
+    baseUrl: `${rawBaseUrl}/api/project`,
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState()?.auth?.token || localStorage.getItem("token");
