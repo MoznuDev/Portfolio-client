@@ -1,4 +1,5 @@
 import { Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useGetBlogsQuery } from "../../redux/features/blogs/blogApi";
 
 const Blog = () => {
@@ -13,8 +14,8 @@ const Blog = () => {
     return <div className="blog-status error">Failed to load blogs.</div>;
   }
 
-  // API response থেকে blogs বের করা (আপনার JSON response অনুযায়ী)
-  const blogs = response?.blogs || [];
+  // API response.data থেকে blogs বের করা
+  const blogs = response?.data || [];
 
   return (
     <section className="blog-section">
@@ -39,10 +40,10 @@ const Blog = () => {
 
               return (
                 <article key={blogId} className="blog-card">
-                  {/* Folder Shape Image Top Notch */}
+                  {/* Image Top Notch */}
                   <div className="blog-image-wrapper">
                     <img
-                      src={blog.coverImage}
+                      src={blog.coverImage || "/placeholder-image.jpg"}
                       alt={blog.title}
                       className="blog-image"
                       loading="lazy"
@@ -69,7 +70,7 @@ const Blog = () => {
 
                     {/* Blog Title */}
                     <h3 className="card-title">
-                      <a href={`/blog/${blog.slug}`}>{blog.title}</a>
+                      <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
                     </h3>
                   </div>
                 </article>
