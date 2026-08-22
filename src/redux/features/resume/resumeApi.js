@@ -4,17 +4,17 @@ export const resumeApi = createApi({
   reducerPath: "resumeApi",
   // baseUrl-এ /resumes পর্যন্ত দেওয়া
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://portfolio-backend-i63g.vercel.app/api/resume",
+    baseUrl: "https://portfolio-backend-89ma.vercel.app/api/resume",
   }),
   tagTypes: ["Resume"],
   endpoints: (builder) => ({
-    // 1. GET: সব সিভি ডাটা ফেচ করা (url হবে: https://portfolio-backend-i63g.vercel.app/api/resumes)
+    // 1. GET: সব সিভি ডাটা ফেচ করা (url হবে: https://portfolio-backend-89ma.vercel.app/api/resumes)
     getAllResumes: builder.query({
       query: () => "/",
       providesTags: ["Resume"],
     }),
 
-    // 2. GET: নির্দিষ্ট আইডি দিয়ে সিভি আনা (url হবে: https://portfolio-backend-i63g.vercel.app/api/resumes/:id)
+    // 2. GET: নির্দিষ্ট আইডি দিয়ে সিভি আনা (url হবে: https://portfolio-backend-89ma.vercel.app/api/resumes/:id)
     getResumeById: builder.query({
       query: (id) => `/${id}`,
       providesTags: (result, error, id) => [{ type: "Resume", id }],

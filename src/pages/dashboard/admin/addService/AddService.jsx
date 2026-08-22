@@ -71,7 +71,7 @@ const AddService = () => {
 
     try {
       const res = await fetch(
-        "https://portfolio-backend-i63g.vercel.app/api/services",
+        "https://portfolio-backend-89ma.vercel.app/api/services",
         {
           method: "POST",
           headers: {

@@ -20,7 +20,7 @@ const ManageSkill = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://portfolio-backend-i63g.vercel.app/api/skill",
+        "https://portfolio-backend-89ma.vercel.app/api/skill",
       );
       const result = await res.json();
 
@@ -52,7 +52,7 @@ const ManageSkill = () => {
 
     try {
       const res = await fetch(
-        `https://portfolio-backend-i63g.vercel.app/api/skill/${id}`,
+        `https://portfolio-backend-89ma.vercel.app/api/skill/${id}`,
         {
           method: "DELETE",
         },

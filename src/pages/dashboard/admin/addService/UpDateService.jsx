@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const API_URL = "https://portfolio-backend-i63g.vercel.app/api/services";
+const API_URL = "https://portfolio-backend-89ma.vercel.app/api/services";
 
 const UpdateService = ({ serviceData, onClose, onUpdateSuccess }) => {
   const [formData, setFormData] = useState({

@@ -80,7 +80,7 @@ const AddBlog = () => {
 
     try {
       const res = await fetch(
-        "https://portfolio-backend-i63g.vercel.app/api/blogs",
+        "https://portfolio-backend-89ma.vercel.app/api/blogs",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

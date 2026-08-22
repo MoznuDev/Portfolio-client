@@ -26,7 +26,7 @@ const UpdateSkill = ({ skill, onBack, onUpdateSuccess }) => {
 
     try {
       const res = await fetch(
-        `https://portfolio-backend-i63g.vercel.app/api/skill/${skill._id || skill.id}`,
+        `https://portfolio-backend-89ma.vercel.app/api/skill/${skill._id || skill.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const skillApi = createApi({
   reducerPath: "skillApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://portfolio-backend-i63g.vercel.app/api/skill",
+    baseUrl: "https://portfolio-backend-89ma.vercel.app/api/skill",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {

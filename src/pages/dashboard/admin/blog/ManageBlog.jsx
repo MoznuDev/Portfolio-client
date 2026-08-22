@@ -10,7 +10,7 @@ const ManageBlog = () => {
   const fetchBlogs = async () => {
     try {
       const res = await fetch(
-        "https://portfolio-backend-i63g.vercel.app/api/blogs",
+        "https://portfolio-backend-89ma.vercel.app/api/blogs",
       );
       const data = await res.json();
 
@@ -38,7 +38,7 @@ const ManageBlog = () => {
 
     try {
       const res = await fetch(
-        `https://portfolio-backend-i63g.vercel.app/api/blogs/${id}`,
+        `https://portfolio-backend-89ma.vercel.app/api/blogs/${id}`,
         {
           method: "DELETE",
         },

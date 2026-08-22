@@ -32,7 +32,7 @@ const AddSkill = () => {
       };
 
       const res = await fetch(
-        "https://portfolio-backend-i63g.vercel.app/api/skill",
+        "https://portfolio-backend-89ma.vercel.app/api/skill",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

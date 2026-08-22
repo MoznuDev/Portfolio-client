@@ -64,7 +64,7 @@ const UpdateBlog = ({ blog, onBack, onUpdateSuccess }) => {
 
     try {
       const res = await fetch(
-        `https://portfolio-backend-i63g.vercel.app/api/blogs/${blog._id}`,
+        `https://portfolio-backend-89ma.vercel.app/api/blogs/${blog._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
