@@ -31,7 +31,7 @@ const Client = () => {
   );
 
   return (
-    <section className="client-section" id="clients">
+    <section className="client-section" id="client">
       <div className="client-container">
         {/* Header */}
         <div className="client-header">

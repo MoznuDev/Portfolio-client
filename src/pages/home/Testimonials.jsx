@@ -1,14 +1,17 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { useGetReviewsQuery } from "../../redux/features/reviews/reviewApi";
 import RatingStars from "../../components/RatingStars";
 
+// Swiper Style Imports
+import "swiper/css";
+import "swiper/css/navigation";
+
 const Testimonials = () => {
-  const { data: response, isLoading, isError } = useGetReviewsQuery();
+  const { data: response, isLoading, isError, error } = useGetReviewsQuery();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const swiperRef = useRef(null);
 
   // Safe Data Extraction
   const reviewsList = Array.isArray(response)
@@ -23,17 +26,6 @@ const Testimonials = () => {
       ).toFixed(1)
     : "5.0";
 
-  // Navigation Ref Update Bugfix for Swiper
-  useEffect(() => {
-    if (swiperRef.current && swiperRef.current.params) {
-      swiperRef.current.params.navigation.prevEl = prevRef.current;
-      swiperRef.current.params.navigation.nextEl = nextRef.current;
-      swiperRef.current.navigation.destroy();
-      swiperRef.current.navigation.init();
-      swiperRef.current.navigation.update();
-    }
-  }, [reviewsList]);
-
   if (isLoading) {
     return (
       <div className="testi-loading text-center py-12 text-cyan-400">
@@ -43,6 +35,7 @@ const Testimonials = () => {
   }
 
   if (isError) {
+    console.error("Testimonials Fetch Error:", error);
     return (
       <div className="testi-error text-center py-12 text-red-500">
         Failed to load reviews. Please try again later.
@@ -119,8 +112,13 @@ const Testimonials = () => {
                 slidesPerView={1}
                 loop={reviewsList.length > 2}
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
-                onSwiper={(swiper) => {
-                  swiperRef.current = swiper;
+                onBeforeInit={(swiper) => {
+                  swiper.params.navigation.prevEl = prevRef.current;
+                  swiper.params.navigation.nextEl = nextRef.current;
+                }}
+                navigation={{
+                  prevEl: prevRef.current,
+                  nextEl: nextRef.current,
                 }}
                 breakpoints={{
                   0: { slidesPerView: 1, spaceBetween: 16 },

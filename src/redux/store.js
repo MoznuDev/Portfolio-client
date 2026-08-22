@@ -15,7 +15,7 @@ import blogApi from "./features/blogs/blogApi";
 import contactApi from "./features/auth/contacts/contactApi";
 import statsApi from "./features/stats/statsApi";
 import clientApi from "./features/clients/clientApi";
-import resumeApi from "./features/resume/resumeApi";
+import resumeApi from "./features/resumes/resumeApi";
 
 export const store = configureStore({
   reducer: {
