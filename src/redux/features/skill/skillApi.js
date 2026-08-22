@@ -15,15 +15,22 @@ export const skillApi = createApi({
   tagTypes: ["Skill"],
   endpoints: (builder) => ({
     // 1. Get All Skills
-    getSkill: builder.query({
+    getSkills: builder.query({ // 👈 Plural (getSkills) করা হলো
       query: (category) => (category ? `?category=${category}` : "/"),
-      providesTags: (result) =>
-        result?.data
+      providesTags: (result) => {
+        const skillArray = Array.isArray(result?.data) 
+          ? result.data 
+          : Array.isArray(result) 
+          ? result 
+          : [];
+          
+        return skillArray.length > 0
           ? [
-              ...result.data.map(({ _id }) => ({ type: "Skill", id: _id })),
+              ...skillArray.map(({ _id, id }) => ({ type: "Skill", id: _id || id })),
               { type: "Skill", id: "LIST" },
             ]
-          : [{ type: "Skill", id: "LIST" }],
+          : [{ type: "Skill", id: "LIST" }];
+      },
     }),
 
     // 2. Add Skill
@@ -63,6 +70,7 @@ export const skillApi = createApi({
   }),
 });
 
+// ✅ এখন সঠিকভাবে Hook গুলো এক্সপোর্ট হবে
 export const {
   useGetSkillsQuery,
   useAddSkillMutation,
