@@ -16,9 +16,9 @@ export const reviewApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Review"], // ✅ "Review" Singular রাখা হয়েছে যাতে নিচের সব Tag-এর সাথে মেলে
+  tagTypes: ["Reviews"],
   endpoints: (builder) => ({
-    // ১. সকল রিভিউ পাওয়া
+    // ১. সকল রিভিউ পাওয়া
     getReviews: builder.query({
       query: () => "/",
       providesTags: (result) => {
@@ -29,19 +29,33 @@ export const reviewApi = createApi({
         return reviewList.length > 0
           ? [
               ...reviewList.map(({ _id, id }) => ({
-                type: "Review",
+                type: "Reviews",
                 id: _id || id,
               })),
-              { type: "Review", id: "LIST" },
+              { type: "Reviews", id: "LIST" },
             ]
-          : [{ type: "Review", id: "LIST" }];
+          : [{ type: "Reviews", id: "LIST" }];
       },
     }),
 
-    // ২. শুধুমাত্র ফিচার্ড (Featured) রিভিউসমূহ পাওয়া
+    // ২. শুধুমাত্র ফিচার্ড (Featured) রিভিউসমূহ পাওয়া
     getFeaturedReviews: builder.query({
       query: () => "/featured",
-      providesTags: [{ type: "Review", id: "FEATURED" }],
+      providesTags: (result) => {
+        const featuredList = Array.isArray(result)
+          ? result
+          : result?.reviews || result?.data || [];
+
+        return featuredList.length > 0
+          ? [
+              ...featuredList.map(({ _id, id }) => ({
+                type: "Reviews",
+                id: _id || id,
+              })),
+              { type: "Reviews", id: "FEATURED" },
+            ]
+          : [{ type: "Reviews", id: "FEATURED" }];
+      },
     }),
 
     // ৩. নতুন রিভিউ পোস্ট করা
@@ -52,8 +66,8 @@ export const reviewApi = createApi({
         body: reviewData,
       }),
       invalidatesTags: [
-        { type: "Review", id: "LIST" },
-        { type: "Review", id: "FEATURED" },
+        { type: "Reviews", id: "LIST" },
+        { type: "Reviews", id: "FEATURED" },
       ],
     }),
 
@@ -61,13 +75,13 @@ export const reviewApi = createApi({
     updateReview: builder.mutation({
       query: ({ id, ...data }) => ({
         url: `/${id}`,
-        method: "PUT",
+        method: "PATCH", // অথবা আপনার ব্যাকএন্ড অনুযায়ী "PUT" রাখুন
         body: data,
       }),
       invalidatesTags: (result, error, { id }) => [
-        { type: "Review", id },
-        { type: "Review", id: "LIST" },
-        { type: "Review", id: "FEATURED" },
+        { type: "Reviews", id },
+        { type: "Reviews", id: "LIST" },
+        { type: "Reviews", id: "FEATURED" },
       ],
     }),
 
@@ -78,9 +92,9 @@ export const reviewApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: (result, error, id) => [
-        { type: "Review", id },
-        { type: "Review", id: "LIST" },
-        { type: "Review", id: "FEATURED" },
+        { type: "Reviews", id },
+        { type: "Reviews", id: "LIST" },
+        { type: "Reviews", id: "FEATURED" },
       ],
     }),
   }),
