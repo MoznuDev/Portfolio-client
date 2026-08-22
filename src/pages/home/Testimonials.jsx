@@ -1,10 +1,8 @@
 import { useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { useGetReviewsQuery } from "../../redux/features/review/reviewApi";
+import { useGetReviewsQuery } from "../../redux/features/reviews/reviewApi";
 import RatingStars from "../../components/RatingStars";
-
-
 
 const Testimonials = () => {
   const { data: response, isLoading, isError } = useGetReviewsQuery();
@@ -173,7 +171,9 @@ const Testimonials = () => {
                           />
                           <div className="client-details">
                             <h4 className="client-name">
-                              {item.clientName || item.name || "Anonymous Client"}
+                              {item.clientName ||
+                                item.name ||
+                                "Anonymous Client"}
                             </h4>
                             <p className="client-role">
                               {item.clientDesignation || item.designation}{" "}

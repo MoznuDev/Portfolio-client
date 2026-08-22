@@ -6,7 +6,7 @@ const rawBaseUrl = getBaseUrl().replace(/\/$/, "");
 export const reviewApi = createApi({
   reducerPath: "reviewApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${rawBaseUrl}/api/reviews`, // নোট: ব্যাকএন্ড রাউটের সাথে মিলিয়ে /api/reviews ব্যবহার করা ভালো
+    baseUrl: `${rawBaseUrl}/api/reviews`,
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState()?.auth?.token || localStorage.getItem("token");
@@ -16,7 +16,7 @@ export const reviewApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Reviews"],
+  tagTypes: ["Review"], // ✅ "Review" Singular রাখা হয়েছে যাতে নিচের সব Tag-এর সাথে মেলে
   endpoints: (builder) => ({
     // ১. সকল রিভিউ পাওয়া
     getReviews: builder.query({
@@ -29,29 +29,32 @@ export const reviewApi = createApi({
         return reviewList.length > 0
           ? [
               ...reviewList.map(({ _id, id }) => ({
-                type: "Reviews",
+                type: "Review",
                 id: _id || id,
               })),
-              { type: "Reviews", id: "LIST" },
+              { type: "Review", id: "LIST" },
             ]
-          : [{ type: "Reviews", id: "LIST" }];
+          : [{ type: "Review", id: "LIST" }];
       },
     }),
 
-    // ২. শুধুমাত্র ফিচার্ড (Featured) রিভিউসমূহ পাওয়া (Home page testimonials-এর জন্য)
+    // ২. শুধুমাত্র ফিচার্ড (Featured) রিভিউসমূহ পাওয়া
     getFeaturedReviews: builder.query({
       query: () => "/featured",
-      providesTags: [{ type: "Reviews", id: "FEATURED" }],
+      providesTags: [{ type: "Review", id: "FEATURED" }],
     }),
 
-    // ৩. নতুন রিভিউ পোস্ট করা (Single or Bulk)
+    // ৩. নতুন রিভিউ পোস্ট করা
     postAReview: builder.mutation({
       query: (reviewData) => ({
-        url: "/create-review",
+        url: "/",
         method: "POST",
         body: reviewData,
       }),
-      invalidatesTags: [{ type: "Reviews", id: "LIST" }, { type: "Reviews", id: "FEATURED" }],
+      invalidatesTags: [
+        { type: "Review", id: "LIST" },
+        { type: "Review", id: "FEATURED" },
+      ],
     }),
 
     // ৪. রিভিউ আপডেট বা Toggle Featured করা
@@ -62,9 +65,9 @@ export const reviewApi = createApi({
         body: data,
       }),
       invalidatesTags: (result, error, { id }) => [
-        { type: "Reviews", id },
-        { type: "Reviews", id: "LIST" },
-        { type: "Reviews", id: "FEATURED" },
+        { type: "Review", id },
+        { type: "Review", id: "LIST" },
+        { type: "Review", id: "FEATURED" },
       ],
     }),
 
@@ -75,9 +78,9 @@ export const reviewApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: (result, error, id) => [
-        { type: "Reviews", id },
-        { type: "Reviews", id: "LIST" },
-        { type: "Reviews", id: "FEATURED" },
+        { type: "Review", id },
+        { type: "Review", id: "LIST" },
+        { type: "Review", id: "FEATURED" },
       ],
     }),
   }),

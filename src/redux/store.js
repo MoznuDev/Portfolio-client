@@ -10,11 +10,11 @@ import serviceApi from "./features/service/serviceApi";
 import skillApi from "./features/skill/skillApi";
 import projectApi from "./features/project/projectApi";
 import testimonialsApi from "./features/testimonials/testimonialsApi";
-import reviewApi from "./features/review/reviewApi";
+import reviewApi from "./features/reviews/reviewApi";
 import blogApi from "./features/blogs/blogApi";
 import contactApi from "./features/auth/contacts/contactApi";
 import statsApi from "./features/stats/statsApi";
-import clientApi from "./features/client/clientApi";
+import clientApi from "./features/clients/clientApi";
 import resumeApi from "./features/resume/resumeApi";
 
 export const store = configureStore({

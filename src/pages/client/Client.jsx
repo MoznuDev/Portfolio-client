@@ -1,43 +1,57 @@
-import { useGetClientsQuery } from "../../redux/features/client/clientApi";
+import { useGetClientsQuery } from "../../redux/features/clients/clientApi";
 
 const Client = () => {
   const { data: response, isLoading, isError, error } = useGetClientsQuery();
 
   if (isLoading) {
-    return <div className="client-loading">Loading clients...</div>;
+    return (
+      <div className="client-loading text-center py-12 text-cyan-400">
+        Loading clients...
+      </div>
+    );
   }
 
   if (isError) {
     console.error("Client API Error:", error);
-    return <div className="client-error">Failed to load client logos.</div>;
+    return (
+      <div className="client-error text-center py-12 text-red-500">
+        Failed to load client logos.
+      </div>
+    );
   }
 
-  // API response থেকে data বের করা
-  const clients = response?.data || [];
+  // Safe Data Extraction (Direct Array, clients property, or data property)
+  const rawClients = Array.isArray(response)
+    ? response
+    : response?.clients || response?.data || [];
 
-  // ডাটাবেজের isActive: true ফিল্টার করা
-  const activeClients = clients.filter((client) => client.isActive !== false);
+  // Active Clients Filter
+  const activeClients = rawClients.filter(
+    (client) => client.isActive !== false,
+  );
 
   return (
-    <section className="client-section">
+    <section className="client-section" id="clients">
       <div className="client-container">
         {/* Header */}
         <div className="client-header">
           <div className="client-badge">
-            <span className="bracket-left"></span>
+            <span className="bracket-left">[</span>
             <span className="badge-text">My Awesome Clients</span>
-            <span className="bracket-right"></span>
+            <span className="bracket-right">]</span>
           </div>
           <h2 className="client-title">My Awesome Clients</h2>
         </div>
 
         {/* Brand Logos Grid */}
         {activeClients.length === 0 ? (
-          <div className="client-empty">No clients found.</div>
+          <div className="client-empty text-gray-400 text-center py-8">
+            No clients found.
+          </div>
         ) : (
           <div className="client-grid">
             {activeClients.map((client) => {
-              const clientId = client.id || client._id;
+              const clientId = client._id || client.id;
 
               return (
                 <a
@@ -47,15 +61,24 @@ const Client = () => {
                   rel="noopener noreferrer"
                   className="client-card"
                 >
-                  {/* লোগো ইমেজ */}
+                  {/* Client Logo */}
                   <img
-                    src={client.logo}
+                    src={
+                      client.logo ||
+                      client.image ||
+                      "https://via.placeholder.com/150?text=Client+Logo"
+                    }
                     alt={client.name || "Client Logo"}
                     className="client-logo"
                     loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://via.placeholder.com/150?text=Client+Logo";
+                    }}
                   />
 
-                  {/* ক্লায়েন্টের নাম দেখানোর জন্য (লোগোর নিচে) */}
+                  {/* Client Name */}
                   {client.name && (
                     <span className="client-name">{client.name}</span>
                   )}
