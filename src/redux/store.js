@@ -17,22 +17,6 @@ import statsApi from "./features/stats/statsApi";
 import clientApi from "./features/client/clientApi";
 import resumeApi from "./features/resume/resumeApi";
 
-// API Array for Middleware
-const apis = [
-  authApi,
-  heroBannerApi,
-  serviceApi,
-  skillApi,
-  projectApi,
-  testimonialsApi,
-  reviewApi,
-  blogApi,
-  contactApi,
-  statsApi,
-  clientApi,
-  resumeApi,
-];
-
 export const store = configureStore({
   reducer: {
     // Auth State Reducer
@@ -56,7 +40,20 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(apis.map((api) => api.middleware)),
+    }).concat(
+      authApi.middleware,
+      heroBannerApi.middleware,
+      serviceApi.middleware,
+      skillApi.middleware,
+      projectApi.middleware,
+      testimonialsApi.middleware,
+      reviewApi.middleware,
+      blogApi.middleware,
+      contactApi.middleware,
+      statsApi.middleware,
+      clientApi.middleware,
+      resumeApi.middleware,
+    ),
 
   devTools: import.meta.env.DEV,
 });
