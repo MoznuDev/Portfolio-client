@@ -1,15 +1,17 @@
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { useGetReviewsQuery } from "../../redux/features/reviews/reviewApi";
-import RatingStars from "../../components/RatingStars";
 
 // Swiper Style Imports
 import "swiper/css";
 import "swiper/css/navigation";
+import { useGetFeaturedReviewsQuery } from "../../redux/features/reviews/reviewApi";
+import RatingStars from "../../components/RatingStars";
+
+const DEFAULT_AVATAR = "https://images.unsplash.com/photo-1494790108377-be9c29b29330";
 
 const Testimonials = () => {
-  const { data: response, isLoading, isError, error } = useGetReviewsQuery();
+  const { data: response, isLoading, isError, error } = useGetFeaturedReviewsQuery();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -28,7 +30,7 @@ const Testimonials = () => {
 
   if (isLoading) {
     return (
-      <div className="testi-loading text-center py-12 text-cyan-400">
+      <div className="testi-loading text-center py-12 text-cyan-400 font-semibold">
         Loading Reviews...
       </div>
     );
@@ -37,7 +39,7 @@ const Testimonials = () => {
   if (isError) {
     console.error("Testimonials Fetch Error:", error);
     return (
-      <div className="testi-error text-center py-12 text-red-500">
+      <div className="testi-error text-center py-12 text-red-500 font-semibold">
         Failed to load reviews. Please try again later.
       </div>
     );
@@ -102,7 +104,7 @@ const Testimonials = () => {
           {/* Right Swiper Carousel */}
           <div className="right-swiper-wrapper">
             {reviewsList.length === 0 ? (
-              <div className="no-reviews text-gray-400 py-8">
+              <div className="no-reviews text-gray-400 py-8 text-center">
                 No reviews found yet.
               </div>
             ) : (
@@ -113,12 +115,14 @@ const Testimonials = () => {
                 loop={reviewsList.length > 2}
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
                 onBeforeInit={(swiper) => {
+                  // Custom navigation ref binding fix
                   swiper.params.navigation.prevEl = prevRef.current;
                   swiper.params.navigation.nextEl = nextRef.current;
                 }}
-                navigation={{
-                  prevEl: prevRef.current,
-                  nextEl: nextRef.current,
+                onInit={(swiper) => {
+                  // Init navigation after DOM elements are mounted
+                  swiper.navigation.init();
+                  swiper.navigation.update();
                 }}
                 breakpoints={{
                   0: { slidesPerView: 1, spaceBetween: 16 },
@@ -157,14 +161,13 @@ const Testimonials = () => {
                             src={
                               item.clientImage ||
                               item.avatar ||
-                              "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+                              DEFAULT_AVATAR
                             }
                             alt={item.clientName || "Client"}
                             className="client-avatar"
                             onError={(e) => {
                               e.target.onerror = null;
-                              e.target.src =
-                                "https://images.unsplash.com/photo-1494790108377-be9c29b29330";
+                              e.target.src = DEFAULT_AVATAR;
                             }}
                           />
                           <div className="client-details">
@@ -174,8 +177,8 @@ const Testimonials = () => {
                                 "Anonymous Client"}
                             </h4>
                             <p className="client-role">
-                              {item.clientDesignation || item.designation}{" "}
-                              {item.company ? `at ${item.company}` : ""}
+                              {item.clientDesignation || item.designation || "Client"}
+                              {item.company ? ` at ${item.company}` : ""}
                             </p>
                           </div>
                         </div>
